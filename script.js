@@ -1,184 +1,373 @@
 /* =========================================================
-   MOBILE NAVIGATION
-========================================================= */
+   script.js
+   Robust navigation and interaction
+   ========================================================= */
 
-const menuToggle = document.getElementById("menuToggle");
-const mainNav = document.getElementById("mainNav");
+document.addEventListener("DOMContentLoaded", () => {
 
-function closeMenu() {
-    if (!menuToggle || !mainNav) return;
+  const views = document.querySelectorAll(".view");
 
-    menuToggle.classList.remove("active");
-    mainNav.classList.remove("open");
-    menuToggle.setAttribute("aria-expanded", "false");
-    menuToggle.setAttribute("aria-label", "Open navigation");
-    document.body.classList.remove("menu-open");
-}
+  const navLinks = document.querySelectorAll("[data-view]");
 
-function openMenu() {
-    if (!menuToggle || !mainNav) return;
+  const mainNav = document.getElementById("mainNav");
 
-    menuToggle.classList.add("active");
-    mainNav.classList.add("open");
-    menuToggle.setAttribute("aria-expanded", "true");
-    menuToggle.setAttribute("aria-label", "Close navigation");
-    document.body.classList.add("menu-open");
-}
+  const menuToggle = document.getElementById("menuToggle");
 
-if (menuToggle && mainNav) {
-    menuToggle.addEventListener("click", () => {
-        const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
-        if (isOpen) {
-            closeMenu();
-        } else {
-            openMenu();
-        }
-    });
-
-    /* Close menu after selecting a section */
-    mainNav.querySelectorAll("a").forEach(link => {
-        link.addEventListener("click", () => {
-            closeMenu();
-        });
-    });
-
-    /* Close with Escape */
-    document.addEventListener("keydown", event => {
-        if (
-            event.key === "Escape" &&
-            menuToggle.getAttribute("aria-expanded") === "true"
-        ) {
-            closeMenu();
-            menuToggle.focus();
-        }
-    });
-
-    /* Close if user returns to desktop */
-    window.addEventListener("resize", () => {
-        if (window.innerWidth > 760) {
-            closeMenu();
-        }
-    });
-}
+  const year = document.getElementById("year");
 
 
-/* =========================================================
-   CURRENT YEAR
-========================================================= */
+  /* ================= CURRENT YEAR ================= */
 
-const yearElement = document.getElementById("year");
-if (yearElement) {
-    yearElement.textContent = new Date().getFullYear();
-}
+  if (year) {
+    year.textContent = new Date().getFullYear();
+  }
 
 
-/* =========================================================
-   SCROLL PROGRESS
-========================================================= */
+  /* ================= VALID VIEW IDS ================= */
 
-const progressBar = document.getElementById("progressBar");
-
-function updateScrollProgress() {
-    if (!progressBar) return;
-
-    const scrollTop = window.scrollY;
-    const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
-
-    if (pageHeight <= 0) return;
-
-    const percentage = (scrollTop / pageHeight) * 100;
-    progressBar.style.width = `${percentage}%`;
-}
-
-window.addEventListener("scroll", updateScrollProgress, { passive: true });
-updateScrollProgress();
+  const validViews = new Set(
+    [...views].map(view => view.id)
+  );
 
 
-/* =========================================================
-   CERTIFICATE LIGHTBOX
-========================================================= */
+  /* ================= CLOSE MOBILE MENU ================= */
 
-const lightbox = document.getElementById("lightbox");
-const lightboxImage = document.getElementById("lightboxImage");
-const lightboxClose = document.getElementById("lightboxClose");
-const certificateButtons = document.querySelectorAll(".certificate-image");
+  function closeMobileMenu() {
 
-function openLightbox(imagePath) {
-    if (!lightbox || !lightboxImage) return;
-
-    lightboxImage.src = imagePath;
-    lightbox.classList.add("open");
-    lightbox.setAttribute("aria-hidden", "false");
-    document.body.classList.add("menu-open");
-}
-
-function closeLightbox() {
-    if (!lightbox || !lightboxImage) return;
-
-    lightbox.classList.remove("open");
-    lightbox.setAttribute("aria-hidden", "true");
-    lightboxImage.src = "";
-    document.body.classList.remove("menu-open");
-}
-
-certificateButtons.forEach(button => {
-    button.addEventListener("click", () => {
-        const image = button.dataset.image;
-        if (image) {
-            openLightbox(image);
-        }
-    });
-});
-
-if (lightboxClose) {
-    lightboxClose.addEventListener("click", closeLightbox);
-}
-
-if (lightbox) {
-    lightbox.addEventListener("click", event => {
-        if (event.target === lightbox) {
-            closeLightbox();
-        }
-    });
-}
-
-/* Close lightbox with Escape */
-document.addEventListener("keydown", event => {
-    if (
-        event.key === "Escape" &&
-        lightbox &&
-        lightbox.classList.contains("open")
-    ) {
-        closeLightbox();
+    if (!mainNav || !menuToggle) {
+      return;
     }
-});
 
+    mainNav.classList.remove("open");
 
-/* =========================================================
-   SCROLL REVEAL ANIMATION OBSERVER
-========================================================= */
-
-const revealElements = document.querySelectorAll(
-    ".section, .dark-section, .contact-section, .research-card, .research-feature, .certificate-item, .timeline article, .education-list article, .publications article, .stats > div, .linkedin-box"
-);
-
-if ("IntersectionObserver" in window && revealElements.length) {
-    const observer = new IntersectionObserver(
-        (entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add("visible");
-                    observer.unobserve(entry.target);
-                }
-            });
-        },
-        {
-            threshold: 0.08,
-            rootMargin: "0px 0px -40px 0px"
-        }
+    menuToggle.setAttribute(
+      "aria-expanded",
+      "false"
     );
 
-    revealElements.forEach((element) => {
-        observer.observe(element);
+    menuToggle.setAttribute(
+      "aria-label",
+      "Open menu"
+    );
+
+    menuToggle.innerHTML =
+      '<i class="fa-solid fa-bars"></i>';
+  }
+
+
+  /* ================= RESET SCROLL ================= */
+
+  function resetViewScroll(target) {
+
+    if (!target) {
+      return;
+    }
+
+    target.scrollTop = 0;
+
+    const container =
+      target.querySelector(".section-container");
+
+    if (container) {
+      container.scrollTop = 0;
+    }
+  }
+
+
+  /* ================= SHOW VIEW ================= */
+
+  function showView(viewId, updateURL = false) {
+
+    const id = validViews.has(viewId)
+      ? viewId
+      : "home";
+
+    const target =
+      document.getElementById(id);
+
+    if (!target) {
+      return;
+    }
+
+
+    /* Activate selected view */
+
+    views.forEach(view => {
+
+      view.classList.toggle(
+        "active",
+        view === target
+      );
+
     });
-}
+
+
+    /* Update navigation */
+
+    navLinks.forEach(button => {
+
+      if (!button.classList.contains("nav-link")) {
+        return;
+      }
+
+      const active =
+        button.dataset.view === id;
+
+      button.classList.toggle(
+        "active",
+        active
+      );
+
+
+      if (active) {
+
+        button.setAttribute(
+          "aria-current",
+          "page"
+        );
+
+      } else {
+
+        button.removeAttribute(
+          "aria-current"
+        );
+
+      }
+
+    });
+
+
+    /* Reset scroll position */
+
+    resetViewScroll(target);
+
+
+    /* Close mobile menu */
+
+    closeMobileMenu();
+
+
+    /* Update browser URL */
+
+    if (updateURL) {
+
+      const hash = `#${id}`;
+
+      if (window.location.hash !== hash) {
+
+        history.pushState(
+          { view: id },
+          "",
+          hash
+        );
+
+      }
+
+    }
+
+  }
+
+
+  /* ================= NAVIGATION ================= */
+
+  function navigate(viewId) {
+
+    if (!validViews.has(viewId)) {
+      return;
+    }
+
+    showView(
+      viewId,
+      true
+    );
+  }
+
+
+  /* ================= ALL DATA-VIEW BUTTONS ================= */
+
+  navLinks.forEach(button => {
+
+    button.addEventListener(
+      "click",
+      event => {
+
+        const viewId =
+          button.dataset.view;
+
+        if (!viewId) {
+          return;
+        }
+
+        event.preventDefault();
+
+        navigate(viewId);
+
+      }
+    );
+
+  });
+
+
+  /* ================= MOBILE MENU ================= */
+
+  if (menuToggle && mainNav) {
+
+    menuToggle.addEventListener(
+      "click",
+      event => {
+
+        event.stopPropagation();
+
+        const isOpen =
+          mainNav.classList.toggle("open");
+
+
+        menuToggle.setAttribute(
+          "aria-expanded",
+          String(isOpen)
+        );
+
+
+        menuToggle.setAttribute(
+          "aria-label",
+          isOpen
+            ? "Close menu"
+            : "Open menu"
+        );
+
+
+        menuToggle.innerHTML = isOpen
+          ? '<i class="fa-solid fa-xmark"></i>'
+          : '<i class="fa-solid fa-bars"></i>';
+
+      }
+    );
+
+
+    /* Close menu when clicking outside */
+
+    document.addEventListener(
+      "click",
+      event => {
+
+        if (!mainNav.classList.contains("open")) {
+          return;
+        }
+
+        if (
+          !mainNav.contains(event.target) &&
+          !menuToggle.contains(event.target)
+        ) {
+
+          closeMobileMenu();
+
+        }
+
+      }
+    );
+
+  }
+
+
+  /* ================= HASH CHANGE ================= */
+
+  window.addEventListener(
+    "hashchange",
+    () => {
+
+      const viewId =
+        window.location.hash.slice(1) ||
+        "home";
+
+      showView(
+        viewId,
+        false
+      );
+
+    }
+  );
+
+
+  /* ================= BROWSER BACK / FORWARD ================= */
+
+  window.addEventListener(
+    "popstate",
+    event => {
+
+      const viewId =
+        event.state?.view ||
+        window.location.hash.slice(1) ||
+        "home";
+
+      showView(
+        viewId,
+        false
+      );
+
+    }
+  );
+
+
+  /* ================= ESCAPE KEY ================= */
+
+  document.addEventListener(
+    "keydown",
+    event => {
+
+      if (event.key !== "Escape") {
+        return;
+      }
+
+
+      const active =
+        document.querySelector(".view.active");
+
+
+      if (
+        active &&
+        active.id !== "home"
+      ) {
+
+        navigate("home");
+
+      } else {
+
+        closeMobileMenu();
+
+      }
+
+    }
+  );
+
+
+  /* ================= EXTERNAL LINKS ================= */
+
+  document
+    .querySelectorAll('a[target="_blank"]')
+    .forEach(link => {
+
+      link.addEventListener(
+        "click",
+        () => {
+          closeMobileMenu();
+        }
+      );
+
+    });
+
+
+  /* ================= INITIAL VIEW ================= */
+
+  const initialView =
+    window.location.hash.slice(1) ||
+    "home";
+
+
+  showView(
+    validViews.has(initialView)
+      ? initialView
+      : "home",
+    false
+  );
+
+});

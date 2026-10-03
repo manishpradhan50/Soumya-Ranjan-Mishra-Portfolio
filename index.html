@@ -1,1386 +1,1415 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b1220">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-    >
+  <title>Soumya Ranjan Mishra | Assistant Professor</title>
 
-    <title>Soumya Ranjan Mishra | Academic Portfolio</title>
+  <meta
+    name="description"
+    content="Academic portfolio of Soumya Ranjan Mishra, Assistant Professor at GIET University, Gunupur, with interests in Machine Learning, Artificial Intelligence, research and web development."
+  >
 
-    <meta
-        name="description"
-        content="Academic portfolio of Soumya Ranjan Mishra, Assistant Professor at GIET University."
-    >
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap"
-        rel="stylesheet"
-    >
+  <!-- Font Awesome -->
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    rel="stylesheet"
+  >
 
-    <link rel="stylesheet" href="styles.css">
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Soumya Ranjan Mishra",
+    "jobTitle": "Assistant Professor",
+    "url": "https://www.linkedin.com/in/mr-soumya/",
+    "telephone": "+91 8917556682",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "GIET University, Gunupur"
+    },
+    "knowsAbout": [
+      "Machine Learning",
+      "Artificial Intelligence",
+      "Image Processing",
+      "Healthcare",
+      "Software Engineering",
+      "Web Development"
+    ]
+  }
+  </script>
 </head>
 
 <body>
 
-<!-- =========================
-     TOP PROGRESS BAR
-========================= -->
+<div class="site">
 
-<div class="scroll-progress">
-    <span id="progressBar"></span>
-</div>
+  <!-- ================= NAVBAR ================= -->
 
+  <header class="topbar">
 
-<!-- =========================
-     SKIP LINK
-========================= -->
+    <button class="brand" data-view="home">
+      <span class="brand-symbol">SM</span>
 
-<a href="#main" class="skip-link">
-    Skip to content
-</a>
+      <span class="brand-info">
+        <strong>Soumya Ranjan Mishra</strong>
+        <small>Assistant Professor · Academic Portfolio</small>
+      </span>
+    </button>
 
+    <nav class="main-nav" id="mainNav">
 
-<!-- =========================
-     NAVIGATION
-========================= -->
+      <button class="nav-link active" data-view="home">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+      </button>
 
-<header class="site-header">
+      <button class="nav-link" data-view="about">
+        <i class="fa-regular fa-user"></i>
+        <span>About</span>
+      </button>
 
-    <nav class="navbar">
+      <button class="nav-link" data-view="experience">
+        <i class="fa-solid fa-briefcase"></i>
+        <span>Experience</span>
+      </button>
 
-        <a href="#home" class="brand">
+      <button class="nav-link" data-view="education">
+        <i class="fa-solid fa-graduation-cap"></i>
+        <span>Education</span>
+      </button>
 
-            <span class="brand-mark">
-                SR
-            </span>
+      <button class="nav-link" data-view="research">
+        <i class="fa-solid fa-microscope"></i>
+        <span>Research</span>
+      </button>
 
-            <span class="brand-name">
-                Soumya Ranjan Mishra
-            </span>
+      <button class="nav-link" data-view="publications">
+        <i class="fa-solid fa-book-open"></i>
+        <span>Publications</span>
+      </button>
 
-        </a>
+      <button class="nav-link" data-view="achievements">
+        <i class="fa-solid fa-award"></i>
+        <span>Achievements</span>
+      </button>
 
+      <button class="nav-link" data-view="skills">
+        <i class="fa-solid fa-layer-group"></i>
+        <span>Expertise</span>
+      </button>
 
-        <button
-            class="menu-toggle"
-            id="menuToggle"
-            type="button"
-            aria-label="Open navigation"
-            aria-expanded="false"
-            aria-controls="mainNav"
-        >
-            <span></span>
-            <span></span>
-        </button>
-
-
-        <div class="nav-menu" id="mainNav">
-
-            <a href="#about">About</a>
-
-            <a href="#research">Research</a>
-
-            <a href="#experience">Experience</a>
-
-            <a href="#education">Education</a>
-
-            <a href="#publications">Publications</a>
-
-            <a href="#certificates">Certificates</a>
-
-            <a
-                href="https://www.linkedin.com/in/mr-soumya/"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="nav-linkedin"
-            >
-                LinkedIn ↗
-            </a>
-
-        </div>
+      <button class="nav-link" data-view="contact">
+        <i class="fa-regular fa-envelope"></i>
+        <span>Contact</span>
+      </button>
 
     </nav>
 
-</header>
+    <button
+      class="menu-toggle"
+      id="menuToggle"
+      aria-label="Open menu"
+      aria-expanded="false"
+    >
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
+  </header>
 
 
-<main id="main">
+  <!-- ================= MAIN ================= -->
 
+  <main>
 
-<!-- =========================
-     HERO
-========================= -->
+    <!-- ================= HOME ================= -->
 
-<section class="hero" id="home">
+    <section class="view home-view active" id="home">
 
-    <div class="hero-container">
+      <div class="home-background">
+        <div class="background-grid"></div>
+        <div class="glow glow-one"></div>
+        <div class="glow glow-two"></div>
+      </div>
 
+      <div class="home-container">
 
-        <!-- LEFT -->
+        <!-- HERO TEXT -->
+
         <div class="hero-content">
 
-            <div class="status-badge">
-                <span></span>
-                Assistant Professor · GIET University
-            </div>
-
-
-            <p class="hero-kicker">
-                ARTIFICIAL INTELLIGENCE
-                <b>×</b>
-                MACHINE LEARNING
-            </p>
-
-
-            <h1>
-                Soumya Ranjan
-                <em>Mishra</em>
-            </h1>
-
-
-            <p class="hero-description">
-                Teaching, research and technology exploration with a focus on
-                Artificial Intelligence, Machine Learning, Image Processing,
-                Healthcare and Web Development.
-            </p>
-
-
-            <div class="hero-actions">
-
-                <a
-                    href="#research"
-                    class="primary-button"
-                >
-                    Explore Research
-                    <span>↓</span>
-                </a>
-
-                <a
-                    href="https://www.linkedin.com/in/mr-soumya/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="text-button"
-                >
-                    LinkedIn Profile ↗
-                </a>
-
-            </div>
-
-
-            <div class="hero-details">
-
-                <div>
-                    <small>ROLE</small>
-                    <strong>Assistant Professor</strong>
-                </div>
-
-                <div>
-                    <small>INSTITUTION</small>
-                    <strong>GIET University</strong>
-                </div>
-
-                <div>
-                    <small>LOCATION</small>
-                    <strong>Gunupur, Odisha</strong>
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- RIGHT PHOTO -->
-        <div class="hero-visual">
-
-            <div class="visual-orb orb-yellow"></div>
-            <div class="visual-orb orb-blue"></div>
-
-
-            <div class="portrait-frame">
-
-                <img
-                    src="photo.jpg"
-                    alt="Portrait of Soumya Ranjan Mishra"
-                >
-
-            </div>
-
-
-            <div class="portrait-tag">
-                <strong>SRM</strong>
-                <span>ACADEMIC PORTFOLIO</span>
-            </div>
-
-
-            <div class="research-tag">
-
-                <strong>
-                    ✦ Research
-                </strong>
-
-                <span>
-                    AI · ML · Healthcare
-                </span>
-
-            </div>
-
-
-            <div class="location-tag">
-                ● Gunupur, Odisha
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     MARQUEE
-========================= -->
-
-<section class="marquee">
-
-    <div class="marquee-track">
-
-        <span>Artificial Intelligence</span>
-        <i>✦</i>
-
-        <span>Machine Learning</span>
-        <i>✦</i>
-
-        <span>Image Processing</span>
-        <i>✦</i>
-
-        <span>Healthcare</span>
-        <i>✦</i>
-
-        <span>Research</span>
-        <i>✦</i>
-
-        <span>Teaching</span>
-        <i>✦</i>
-
-        <span>Artificial Intelligence</span>
-        <i>✦</i>
-
-        <span>Machine Learning</span>
-        <i>✦</i>
-
-        <span>Image Processing</span>
-        <i>✦</i>
-
-        <span>Healthcare</span>
-        <i>✦</i>
-
-        <span>Research</span>
-        <i>✦</i>
-
-        <span>Teaching</span>
-        <i>✦</i>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     STATS
-========================= -->
-
-<section class="stats">
-
-    <div>
-        <strong>3+</strong>
-        <span>
-            Years across academic and research roles
-        </span>
-    </div>
-
-    <div>
-        <strong>5</strong>
-        <span>
-            Publication titles listed in the profile
-        </span>
-    </div>
-
-    <div>
-        <strong>3</strong>
-        <span>
-            Academic degrees in computing
-        </span>
-    </div>
-
-    <div>
-        <strong>AI/ML</strong>
-        <span>
-            Core professional focus
-        </span>
-    </div>
-
-</section>
-
-
-<!-- =========================
-     ABOUT
-========================= -->
-
-<section class="section" id="about">
-
-    <div class="section-container">
-
-        <div class="section-number">
-            01 · ABOUT
-        </div>
-
-
-        <div class="two-column">
+          <div class="academic-label">
+            <span></span>
+            ASSISTANT PROFESSOR · RESEARCHER · MENTOR
+          </div>
+
+          <h1>
+            Mr.
+            <span>Soumya Ranjan Mishra</span>
+          </h1>
+
+          <p class="hero-role">
+            GIET University, Gunupur · Computer Applications
+          </p>
+
+          <p class="hero-description">
+            Assistant Professor working across Machine Learning,
+            Artificial Intelligence, Software Engineering and
+            research-oriented computing, with a focus on practical
+            learning and applied research.
+          </p>
+
+          <div class="hero-actions">
+
+            <button class="primary-btn" data-view="about">
+              Explore Profile
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+
+            <button class="outline-btn" data-view="contact">
+              Contact
+            </button>
+
+            <a
+              class="outline-btn"
+              href="https://www.linkedin.com/in/mr-soumya/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn
+              <i class="fa-brands fa-linkedin-in"></i>
+            </a>
+
+          </div>
+
+          <div class="hero-stats">
 
             <div>
+              <strong>3+</strong>
+              <span>Years at GIET</span>
+            </div>
 
-                <h2>
-                    Teaching with curiosity.
-                    <em>Research with purpose.</em>
-                </h2>
+            <div>
+              <strong>16</strong>
+              <span>Publications</span>
+            </div>
+
+            <div>
+              <strong>M.Tech</strong>
+              <span>AI / ML</span>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- PROFILE CARD -->
+
+        <div class="hero-profile">
+
+          <div class="profile-orbit orbit-one"></div>
+          <div class="profile-orbit orbit-two"></div>
+
+          <div class="profile-card">
+
+            <div class="profile-top">
+
+              <span class="profile-tag">
+                <i class="fa-solid fa-circle"></i>
+                AVAILABLE FOR ACADEMIC COLLABORATION
+              </span>
+
+              <span class="profile-number">
+                01
+              </span>
 
             </div>
 
 
-            <div class="content">
+            <div class="profile-image-wrapper">
 
-                <p class="large-text">
-                    Soumya Ranjan Mishra is an Assistant Professor at
-                    GIET University, Gunupur, combining teaching with
-                    research-oriented work in emerging computing
-                    technologies.
-                </p>
+              <div class="image-frame">
 
+                <img
+                  src="photo.jpg"
+                  alt="Soumya Ranjan Mishra — Assistant Professor"
+                >
 
-                <p>
-                    His professional profile identifies Machine Learning,
-                    Artificial Intelligence, Image Processing and Healthcare
-                    among his key areas. His technical profile also includes
-                    Web Development and Web Development &amp; Designing.
-                </p>
+              </div>
 
-
-                <div class="quote">
-                    “Learning becomes meaningful when ideas move from the
-                    classroom into problems that matter.”
-                </div>
+              <div class="image-decoration decoration-one"></div>
+              <div class="image-decoration decoration-two"></div>
 
             </div>
 
+
+            <div class="profile-bottom">
+
+              <div>
+                <small>ACADEMIC PORTFOLIO</small>
+                <h3>Soumya Ranjan Mishra</h3>
+              </div>
+
+              <div class="profile-arrow">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- Floating Research Card -->
+
+          <div class="floating-card card-research">
+
+            <i class="fa-solid fa-flask"></i>
+
+            <div>
+              <strong>Research</strong>
+              <span>Machine Learning &amp; AI</span>
+            </div>
+
+          </div>
+
+
+          <!-- Floating Teaching Card -->
+
+          <div class="floating-card card-teaching">
+
+            <i class="fa-solid fa-graduation-cap"></i>
+
+            <div>
+              <strong>Teaching</strong>
+              <span>Computer Applications</span>
+            </div>
+
+          </div>
+
         </div>
 
-    </div>
+      </div>
 
-</section>
+    </section>
 
 
-<!-- =========================
-     RESEARCH
-========================= -->
+    <!-- ================= ABOUT ================= -->
 
-<section class="dark-section" id="research">
+    <section class="view section-view" id="about">
 
-    <div class="section-container">
+      <div class="section-container">
 
-        <div class="section-number light">
-            02 · RESEARCH &amp; EXPERTISE
+        <div class="section-heading">
+
+          <div>
+            <span class="eyebrow">01 · PROFILE</span>
+            <h2>About <span>Professor</span></h2>
+          </div>
+
+          <button class="home-return" data-view="home">
+            <i class="fa-solid fa-arrow-left"></i>
+            Home
+          </button>
+
         </div>
 
 
-        <div class="research-heading">
+        <div class="about-grid">
 
-            <h2>
-                Ideas becoming
-                <em>practical systems.</em>
-            </h2>
+          <div class="about-main">
+
+            <p class="large-text">
+              Soumya Ranjan Mishra is an Assistant Professor at
+              GIET University, Gunupur, with an academic background
+              in Computer Science, Computer Applications and AI/ML.
+            </p>
 
             <p>
-                Professional skill areas and research themes documented
-                in the supplied profile.
+              His academic and professional experience includes
+              teaching, research assistance, teaching assistance
+              and software-oriented work, with a focus on connecting
+              computing concepts with practical applications.
             </p>
+
+            <p>
+              His documented areas of interest and expertise include
+              Machine Learning, Artificial Intelligence, Image Processing,
+              Healthcare, Web Development and Software Engineering.
+            </p>
+
+          </div>
+
+
+          <div class="about-details">
+
+            <div class="detail-item">
+              <span>Current Position</span>
+              <strong>Assistant Professor</strong>
+            </div>
+
+            <div class="detail-item">
+              <span>Department</span>
+              <strong>Computer Applications</strong>
+            </div>
+
+            <div class="detail-item">
+              <span>Institution</span>
+              <strong>GIET University, Gunupur</strong>
+            </div>
+
+            <div class="detail-item">
+              <span>Academic Focus</span>
+              <strong>Machine Learning · AI · Software Engineering</strong>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= EXPERIENCE ================= -->
+
+    <section class="view section-view" id="experience">
+
+      <div class="section-container">
+
+        <div class="section-heading">
+
+          <div>
+            <span class="eyebrow">02 · CAREER</span>
+            <h2>Professional <span>Experience</span></h2>
+          </div>
+
+          <button class="home-return" data-view="home">
+            <i class="fa-solid fa-arrow-left"></i>
+            Home
+          </button>
+
+        </div>
+
+
+        <div class="timeline">
+
+          <article class="timeline-item">
+
+            <div class="timeline-date">
+              JUL 2025 — PRESENT
+            </div>
+
+            <div class="timeline-dot"></div>
+
+            <div class="timeline-card">
+
+              <span>ACADEMIC POSITION</span>
+
+              <h3>Assistant Professor</h3>
+
+              <h4>GIET University, Gunupur</h4>
+
+              <p>
+                Assistant Professor at GIET University, Gunupur,
+                working in teaching and academic activities.
+              </p>
+
+              <div class="tag-row">
+                <span>Teaching</span>
+                <span>Research</span>
+                <span>Mentoring</span>
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <article class="timeline-item">
+
+            <div class="timeline-date">
+              SEP 2024 — JUN 2025
+            </div>
+
+            <div class="timeline-dot"></div>
+
+            <div class="timeline-card">
+
+              <span>ACADEMIC POSITION</span>
+
+              <h3>Lecturer</h3>
+
+              <h4>GIET University, Gunupur</h4>
+
+              <p>
+                Lecturing and supporting academic learning
+                and departmental activities.
+              </p>
+
+              <div class="tag-row">
+                <span>Teaching</span>
+                <span>Academics</span>
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <article class="timeline-item">
+
+            <div class="timeline-date">
+              JAN 2024 — AUG 2024
+            </div>
+
+            <div class="timeline-dot"></div>
+
+            <div class="timeline-card">
+
+              <span>ACADEMIC EXPERIENCE</span>
+
+              <h3>Teaching Assistant</h3>
+
+              <h4>GIET University, Gunupur</h4>
+
+              <p>
+                Supported teaching and student learning activities.
+              </p>
+
+              <div class="tag-row">
+                <span>Teaching</span>
+                <span>Student Support</span>
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <article class="timeline-item">
+
+            <div class="timeline-date">
+              JUL 2023 — DEC 2023
+            </div>
+
+            <div class="timeline-dot"></div>
+
+            <div class="timeline-card">
+
+              <span>RESEARCH EXPERIENCE</span>
+
+              <h3>Research Assistant</h3>
+
+              <h4>GIET University, Gunupur</h4>
+
+              <p>
+                Supported research-oriented work and academic activities.
+              </p>
+
+              <div class="tag-row">
+                <span>Research</span>
+                <span>Machine Learning</span>
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <article class="timeline-item">
+
+            <div class="timeline-date">
+              MAR 2023 — JUN 2023
+            </div>
+
+            <div class="timeline-dot"></div>
+
+            <div class="timeline-card">
+
+              <span>EARLY EXPERIENCE</span>
+
+              <h3>Intern</h3>
+
+              <h4>Gunupur</h4>
+
+              <p>
+                Internship experience documented in the supplied profile.
+              </p>
+
+              <div class="tag-row">
+                <span>Internship</span>
+                <span>Technology</span>
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <article class="timeline-item">
+
+            <div class="timeline-date">
+              OCT 2023 — NOV 2023
+            </div>
+
+            <div class="timeline-dot"></div>
+
+            <div class="timeline-card">
+
+              <span>INTERNSHIP</span>
+
+              <h3>Intern</h3>
+
+              <h4>InternPe</h4>
+
+              <p>
+                Internship experience documented in the supplied profile.
+              </p>
+
+              <div class="tag-row">
+                <span>Internship</span>
+                <span>Web Development</span>
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <article class="timeline-item">
+
+            <div class="timeline-date">
+              OCT 2023 — NOV 2023
+            </div>
+
+            <div class="timeline-dot"></div>
+
+            <div class="timeline-card">
+
+              <span>INTERNSHIP</span>
+
+              <h3>Intern</h3>
+
+              <h4>SYNC Intern’s</h4>
+
+              <p>
+                Internship experience documented in the supplied profile.
+              </p>
+
+              <div class="tag-row">
+                <span>Internship</span>
+                <span>Technology</span>
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <article class="timeline-item">
+
+            <div class="timeline-date">
+              OCT 2023 — NOV 2023
+            </div>
+
+            <div class="timeline-dot"></div>
+
+            <div class="timeline-card">
+
+              <span>INTERNSHIP</span>
+
+              <h3>Intern</h3>
+
+              <h4>Oasis Infobyte</h4>
+
+              <p>
+                Internship experience documented in the supplied profile.
+              </p>
+
+              <div class="tag-row">
+                <span>Internship</span>
+                <span>Web Development</span>
+              </div>
+
+            </div>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= EDUCATION ================= -->
+
+    <section class="view section-view" id="education">
+
+      <div class="section-container">
+
+        <div class="section-heading">
+
+          <div>
+            <span class="eyebrow">03 · ACADEMICS</span>
+            <h2>Education &amp; <span>Qualifications</span></h2>
+          </div>
+
+          <button class="home-return" data-view="home">
+            <i class="fa-solid fa-arrow-left"></i>
+            Home
+          </button>
+
+        </div>
+
+
+        <div class="education-grid">
+
+          <article class="education-card featured">
+
+            <div class="education-icon">
+              <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+
+            <span>HIGHEST QUALIFICATION</span>
+
+            <h3>
+              M.Tech — Computer Science Engineering (AI/ML)
+            </h3>
+
+            <p>
+              GIET University, Gunupur
+            </p>
+
+            <small>
+              September 2023 — May 2025
+            </small>
+
+          </article>
+
+
+          <article class="education-card">
+
+            <div class="education-icon">
+              <i class="fa-solid fa-book"></i>
+            </div>
+
+            <span>POSTGRADUATE</span>
+
+            <h3>
+              MCA — Computer &amp; Information Sciences
+            </h3>
+
+            <p>
+              GIET University, Gunupur
+            </p>
+
+            <small>
+              July 2021 — May 2023
+            </small>
+
+          </article>
+
+
+          <article class="education-card">
+
+            <div class="education-icon">
+              <i class="fa-solid fa-laptop-code"></i>
+            </div>
+
+            <span>UNDERGRADUATE</span>
+
+            <h3>
+              Bachelor's Degree — Computer Software Engineering
+            </h3>
+
+            <p>
+              Berhampur University
+            </p>
+
+            <small>
+              August 2018 — July 2021
+            </small>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= RESEARCH ================= -->
+
+    <section class="view section-view" id="research">
+
+      <div class="section-container">
+
+        <div class="section-heading">
+
+          <div>
+            <span class="eyebrow">04 · DISCOVERY</span>
+            <h2>Research <span>Interests</span></h2>
+          </div>
+
+          <button class="home-return" data-view="home">
+            <i class="fa-solid fa-arrow-left"></i>
+            Home
+          </button>
 
         </div>
 
 
         <div class="research-grid">
 
+          <article class="research-card large">
 
-            <article class="research-card">
+            <div class="research-number">01</div>
 
-                <span class="card-number">
-                    01
-                </span>
+            <i class="fa-solid fa-brain"></i>
 
-                <b>AI</b>
+            <h3>Machine Learning</h3>
 
-                <h3>
-                    Artificial Intelligence
-                </h3>
+            <p>
+              Machine learning methods and applied intelligent
+              systems for real-world problems.
+            </p>
 
-                <p>
-                    Intelligent systems and machine-driven approaches
-                    to practical computing problems.
-                </p>
-
-                <small>
-                    INTELLIGENT SYSTEMS
-                </small>
-
-            </article>
+          </article>
 
 
-            <article class="research-card">
+          <article class="research-card">
 
-                <span class="card-number">
-                    02
-                </span>
+            <div class="research-number">02</div>
 
-                <b>ML</b>
+            <i class="fa-solid fa-robot"></i>
 
-                <h3>
-                    Machine Learning
-                </h3>
+            <h3>Artificial Intelligence</h3>
 
-                <p>
-                    Data-driven computational models for prediction,
-                    analysis and intelligent decision support.
-                </p>
+            <p>
+              AI-focused approaches, predictive systems and
+              practical applications.
+            </p>
 
-                <small>
-                    PREDICTION · DATA
-                </small>
-
-            </article>
+          </article>
 
 
-            <article class="research-card">
+          <article class="research-card">
 
-                <span class="card-number">
-                    03
-                </span>
+            <div class="research-number">03</div>
 
-                <b>IP</b>
+            <i class="fa-solid fa-image"></i>
 
-                <h3>
-                    Image Processing
-                </h3>
+            <h3>Image Processing</h3>
 
-                <p>
-                    Image-based computational approaches, including
-                    healthcare-oriented applications.
-                </p>
+            <p>
+              Image analysis and processing, including research
+              applications in healthcare.
+            </p>
 
-                <small>
-                    IMAGE · VISION
-                </small>
-
-            </article>
+          </article>
 
 
-            <article class="research-card">
+          <article class="research-card">
 
-                <span class="card-number">
-                    04
-                </span>
+            <div class="research-number">04</div>
 
-                <b>HC</b>
+            <i class="fa-solid fa-heart-pulse"></i>
 
-                <h3>
-                    Healthcare
-                </h3>
+            <h3>Healthcare AI</h3>
 
-                <p>
-                    Computational intelligence applied to
-                    healthcare-focused prediction and analysis.
-                </p>
+            <p>
+              Machine learning and AI applications related to
+              healthcare and diabetes prediction.
+            </p>
 
-                <small>
-                    HEALTH AI
-                </small>
+          </article>
 
-            </article>
+        </div>
+
+      </div>
+
+    </section>
 
 
-            <article class="research-card">
+    <!-- ================= PUBLICATIONS ================= -->
 
-                <span class="card-number">
-                    05
-                </span>
+    <section class="view section-view" id="publications">
 
-                <b>WEB</b>
+      <div class="section-container">
 
-                <h3>
-                    Web Development
-                </h3>
+        <div class="section-heading">
 
-                <p>
-                    Web development and designing are also listed
-                    among his technical skills.
-                </p>
+          <div>
+            <span class="eyebrow">05 · SCHOLARLY WORK</span>
+            <h2>Selected <span>Publications</span></h2>
+          </div>
 
-                <small>
-                    DEVELOPMENT · DESIGN
-                </small>
+          <button class="home-return" data-view="home">
+            <i class="fa-solid fa-arrow-left"></i>
+            Home
+          </button>
 
-            </article>
+        </div>
 
 
-            <article class="research-feature">
+        <div class="publication-list">
 
-                <small>
-                    CORE DIRECTION · AI / ML
-                </small>
 
-                <h3>
-                    From data to
-                    meaningful insight.
-                </h3>
+          <article class="publication">
 
-                <p>
-                    A professional profile connecting teaching,
-                    research and emerging technologies.
-                </p>
+            <div class="publication-year">
+              2026
+            </div>
 
-                <a href="#publications">
-                    View publications ↗
+            <div class="publication-content">
+
+              <span>BOOK CHAPTER</span>
+
+              <h3>
+                AI-Driven Remote Health Monitoring for Predicting
+                Diabetes and Heart Diseases Using ULMCSO and PGND Models
+              </h3>
+
+              <p>
+                Book chapter · 2026 · pp. 219–247
+              </p>
+
+              <div class="publication-actions">
+
+                <a
+                  class="publication-button"
+                  href="https://doi.org/10.1002/9781394315635.ch11"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View / Search Publication
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 </a>
 
-            </article>
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <article class="publication">
+
+            <div class="publication-year">
+              —
+            </div>
+
+            <div class="publication-content">
+
+              <span>RESEARCH PUBLICATION</span>
+
+              <h3>
+                Predicting diabetic patients coronary artery calcium score,
+                deep learning using retinal images
+              </h3>
+
+              <p>
+                Publication listed in the supplied profile
+              </p>
+
+              <div class="publication-actions">
+
+                <a
+                  class="publication-button"
+                  href="https://scholar.google.com/scholar?q=Predicting+diabetic+patients+coronary+artery+calcium+score+deep+learning+using+retinal+images"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View / Search Publication
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <article class="publication">
+
+            <div class="publication-year">
+              —
+            </div>
+
+            <div class="publication-content">
+
+              <span>RESEARCH PUBLICATION</span>
+
+              <h3>
+                Combating food insecurity through remote sensing
+                and machine learning for enhanced crop yield prediction
+              </h3>
+
+              <p>
+                Publication listed in the supplied profile
+              </p>
+
+              <div class="publication-actions">
+
+                <a
+                  class="publication-button"
+                  href="https://scholar.google.com/scholar?q=Combating+food+insecurity+through+remote+sensing+and+machine+learning+for+enhanced+crop+yield+prediction"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View / Search Publication
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <article class="publication">
+
+            <div class="publication-year">
+              —
+            </div>
+
+            <div class="publication-content">
+
+              <span>RESEARCH PUBLICATION</span>
+
+              <h3>
+                Effective Diabetes Mellitus Prediction Using a Hybrid
+                Ensemble Machine Learning Model with IoT
+              </h3>
+
+              <p>
+                Publication listed in the supplied profile
+              </p>
+
+              <div class="publication-actions">
+
+                <a
+                  class="publication-button"
+                  href="https://scholar.google.com/scholar?q=Effective+Diabetes+Mellitus+Prediction+Using+a+Hybrid+Ensemble+Machine+Learning+Model+with+IoT"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View / Search Publication
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <article class="publication">
+
+            <div class="publication-year">
+              —
+            </div>
+
+            <div class="publication-content">
+
+              <span>RESEARCH PUBLICATION</span>
+
+              <h3>
+                Integrating Multi-Omics Data for Advanced Diabetes
+                Prediction and Understanding
+              </h3>
+
+              <p>
+                Publication listed in the supplied profile
+              </p>
+
+              <div class="publication-actions">
+
+                <a
+                  class="publication-button"
+                  href="https://scholar.google.com/scholar?q=Integrating+Multi-Omics+Data+for+Advanced+Diabetes+Prediction+and+Understanding"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View / Search Publication
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <article class="publication">
+
+            <div class="publication-year">
+              —
+            </div>
+
+            <div class="publication-content">
+
+              <span>RESEARCH PUBLICATION</span>
+
+              <h3>
+                Enhancing Diabetes Prediction using Hybrid Ensemble Approach
+              </h3>
+
+              <p>
+                Publication listed in the supplied profile
+              </p>
+
+              <div class="publication-actions">
+
+                <a
+                  class="publication-button"
+                  href="https://scholar.google.com/scholar?q=Enhancing+Diabetes+Prediction+using+Hybrid+Ensemble+Approach"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View / Search Publication
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+
+              </div>
+
+            </div>
+
+          </article>
 
         </div>
 
-    </div>
+      </div>
 
-</section>
+    </section>
 
 
-<!-- =========================
-     EXPERIENCE
-========================= -->
+    <!-- ================= ACHIEVEMENTS ================= -->
 
-<section class="section" id="experience">
+    <section class="view section-view" id="achievements">
 
-    <div class="section-container">
+      <div class="section-container">
 
-        <div class="section-number">
-            03 · EXPERIENCE
+        <div class="section-heading">
+
+          <div>
+            <span class="eyebrow">06 · RECOGNITION</span>
+            <h2>Achievements &amp; <span>Recognition</span></h2>
+          </div>
+
+          <button class="home-return" data-view="home">
+            <i class="fa-solid fa-arrow-left"></i>
+            Home
+          </button>
+
         </div>
 
 
-        <div class="two-column">
+        <div class="achievement-grid">
+
+
+          <article class="achievement-card">
+
+            <div class="achievement-icon">
+              <i class="fa-solid fa-book-open"></i>
+            </div>
 
             <div>
 
-                <h2>
-                    A journey through
-                    <em>academia &amp; research.</em>
-                </h2>
+              <span>SCHOLARLY RECORD</span>
 
-                <p class="muted">
-                    Roles and dates are based on the supplied
-                    professional profile.
-                </p>
+              <h3>16 Publications</h3>
 
-            </div>
-
-
-            <div class="timeline">
-
-
-                <article>
-
-                    <time>
-                        JUL 2025 — PRESENT
-                    </time>
-
-                    <div>
-                        <span></span>
-
-                        <h3>
-                            Assistant Professor
-                        </h3>
-
-                        <p>
-                            GIET University, Gunupur
-                        </p>
-                    </div>
-
-                </article>
-
-
-                <article>
-
-                    <time>
-                        SEP 2024 — JUN 2025
-                    </time>
-
-                    <div>
-                        <span></span>
-
-                        <h3>
-                            Lecturer
-                        </h3>
-
-                        <p>
-                            GIET University, Gunupur, Odisha
-                        </p>
-                    </div>
-
-                </article>
-
-
-                <article>
-
-                    <time>
-                        JAN 2024 — AUG 2024
-                    </time>
-
-                    <div>
-                        <span></span>
-
-                        <h3>
-                            Teaching Assistant
-                        </h3>
-
-                        <p>
-                            GIET University, Gunupur
-                        </p>
-                    </div>
-
-                </article>
-
-
-                <article>
-
-                    <time>
-                        JUL 2023 — DEC 2023
-                    </time>
-
-                    <div>
-                        <span></span>
-
-                        <h3>
-                            Research Assistant
-                        </h3>
-
-                        <p>
-                            GIET University, Gunupur
-                        </p>
-                    </div>
-
-                </article>
-
-
-                <article>
-
-                    <time>
-                        MAR 2023 — JUN 2023
-                    </time>
-
-                    <div>
-                        <span></span>
-
-                        <h3>
-                            Intern
-                        </h3>
-
-                        <p>
-                            Professional internship experience
-                        </p>
-                    </div>
-
-                </article>
-
-
-                <article>
-
-                    <time>
-                        OCT — NOV 2023
-                    </time>
-
-                    <div>
-                        <span></span>
-
-                        <h3>
-                            Internship Experiences
-                        </h3>
-
-                        <p>
-                            InternPe · SYNC INTERN'S · Oasis Infobyte
-                        </p>
-                    </div>
-
-                </article>
-
+              <p>
+                The Vidwan profile lists 16 scholarly publications
+                for Mr. Soumya Ranjan Mishra.
+              </p>
 
             </div>
 
-        </div>
-
-    </div>
-
-</section>
+          </article>
 
 
-<!-- =========================
-     EDUCATION
-========================= -->
+          <article class="achievement-card">
 
-<section class="section light-section" id="education">
-
-    <div class="section-container">
-
-        <div class="section-number">
-            04 · EDUCATION
-        </div>
-
-
-        <div class="two-column">
+            <div class="achievement-icon">
+              <i class="fa-solid fa-chart-line"></i>
+            </div>
 
             <div>
 
-                <h2>
-                    Three steps.
-                    <em>One evolving path.</em>
-                </h2>
+              <span>RESEARCH IMPACT</span>
 
-                <p class="muted">
-                    Academic preparation across computer science,
-                    applications and AI/ML.
-                </p>
+              <h3>52 Scopus Citations</h3>
 
-            </div>
-
-
-            <div class="education-list">
-
-
-                <article>
-
-                    <time>
-                        2023 — 2025
-                    </time>
-
-                    <div>
-
-                        <b>M.Tech</b>
-
-                        <h3>
-                            Computer Science Engineering
-                            (AI/ML)
-                        </h3>
-
-                        <p>
-                            GIET University, Gunupur
-                        </p>
-
-                    </div>
-
-                    <span>↗</span>
-
-                </article>
-
-
-                <article>
-
-                    <time>
-                        2021 — 2023
-                    </time>
-
-                    <div>
-
-                        <b>MCA</b>
-
-                        <h3>
-                            Computer and Information Sciences
-                            and Support Services
-                        </h3>
-
-                        <p>
-                            GIET University, Gunupur
-                        </p>
-
-                    </div>
-
-                    <span>↗</span>
-
-                </article>
-
-
-                <article>
-
-                    <time>
-                        2018 — 2021
-                    </time>
-
-                    <div>
-
-                        <b>Bachelor's Degree</b>
-
-                        <h3>
-                            Computer Software Engineering
-                        </h3>
-
-                        <p>
-                            Berhampur University
-                        </p>
-
-                    </div>
-
-                    <span>↗</span>
-
-                </article>
-
+              <p>
+                The Vidwan profile currently lists 52 Scopus citations
+                and an h-index of 5.
+              </p>
 
             </div>
 
+          </article>
+
+
+          <article class="achievement-card">
+
+            <div class="achievement-icon">
+              <i class="fa-solid fa-lightbulb"></i>
+            </div>
+
+            <div>
+
+              <span>PATENT</span>
+
+              <h3>Multi-Function Diabetic Kit</h3>
+
+              <p>
+                Vidwan records a granted patent titled
+                “MULTI-FUNCTION DIABETIC KIT”, published on
+                22 August 2024.
+              </p>
+
+            </div>
+
+          </article>
+
+
         </div>
 
-    </div>
+      </div>
 
-</section>
+    </section>
 
 
-<!-- =========================
-     PUBLICATIONS
-========================= -->
+    <!-- ================= SKILLS ================= -->
 
-<section class="section" id="publications">
+    <section class="view section-view" id="skills">
 
-    <div class="section-container">
+      <div class="section-container">
 
-        <div class="section-number">
-            05 · PUBLICATIONS
+        <div class="section-heading">
+
+          <div>
+            <span class="eyebrow">07 · EXPERTISE</span>
+            <h2>Areas of <span>Expertise</span></h2>
+          </div>
+
+          <button class="home-return" data-view="home">
+            <i class="fa-solid fa-arrow-left"></i>
+            Home
+          </button>
+
         </div>
 
 
-        <div class="publication-heading">
+        <div class="expertise-layout">
 
-            <h2>
-                Research that asks
-                <em>better questions.</em>
-            </h2>
+          <div class="expertise-intro">
 
-            <p class="muted">
-                Research titles listed in the supplied profile.
+            <span>ACADEMIC EXPERTISE</span>
+
+            <h3>
+              Knowledge that connects
+              <em>teaching, research</em>
+              and technology.
+            </h3>
+
+            <p>
+              Documented expertise and professional interests include
+              Machine Learning, Artificial Intelligence, Image Processing,
+              Healthcare, Web Development, Software Engineering and research.
             </p>
 
-        </div>
+          </div>
 
 
-        <div class="publications">
+          <div class="skills-cloud">
 
+            <span>Machine Learning</span>
+            <span>Artificial Intelligence</span>
+            <span>Image Processing</span>
+            <span>Healthcare AI</span>
+            <span>Software Engineering</span>
+            <span>Web Development</span>
+            <span>Web Development &amp; Designing</span>
+            <span>Research</span>
+            <span>Computer Applications</span>
+            <span>Deep Learning</span>
+            <span>IoT</span>
+            <span>Technical Mentoring</span>
 
-            <article>
-
-                <span>01</span>
-
-                <div>
-
-                    <small>
-                        DEEP LEARNING · RETINAL IMAGING
-                    </small>
-
-                    <h3>
-                        Predicting diabetic patients coronary
-                        artery calcium score, deep learning using
-                        retinal images
-                    </h3>
-
-                </div>
-
-            </article>
-
-
-            <article>
-
-                <span>02</span>
-
-                <div>
-
-                    <small>
-                        REMOTE SENSING · MACHINE LEARNING
-                    </small>
-
-                    <h3>
-                        Combating food insecurity through remote
-                        sensing and machine learning for enhanced
-                        crop yield prediction
-                    </h3>
-
-                </div>
-
-            </article>
-
-
-            <article>
-
-                <span>03</span>
-
-                <div>
-
-                    <small>
-                        HEALTHCARE · IoT · ML
-                    </small>
-
-                    <h3>
-                        Effective Diabetes Mellitus Prediction
-                        Using a Hybrid Ensemble Machine Learning
-                        Model with IoT
-                    </h3>
-
-                </div>
-
-            </article>
-
-
-            <article>
-
-                <span>04</span>
-
-                <div>
-
-                    <small>
-                        MULTI-OMICS · DIABETES
-                    </small>
-
-                    <h3>
-                        Integrating Multi-Omics Data for Advanced
-                        Diabetes Prediction and Understanding
-                    </h3>
-
-                </div>
-
-            </article>
-
-
-            <article>
-
-                <span>05</span>
-
-                <div>
-
-                    <small>
-                        HYBRID ENSEMBLE · PREDICTION
-                    </small>
-
-                    <h3>
-                        Enhancing Diabetes Prediction using
-                        Hybrid Ensemble Approach
-                    </h3>
-
-                </div>
-
-            </article>
-
+          </div>
 
         </div>
 
-    </div>
+      </div>
 
-</section>
-
-
-<!-- =========================
-     SKILLS
-========================= -->
-
-<section class="dark-section skills-section">
-
-    <div class="section-container">
-
-        <div class="section-number light">
-            06 · SKILLS
-        </div>
+    </section>
 
 
-        <div class="skills-layout">
+    <!-- ================= CONTACT ================= -->
 
-            <div>
+    <section class="view section-view" id="contact">
 
-                <h2>
-                    Skills that turn
-                    <em>knowledge into action.</em>
-                </h2>
+      <div class="section-container">
 
-                <p>
-                    Selected skills and technical areas from the
-                    supplied profile.
-                </p>
+        <div class="section-heading">
 
-            </div>
+          <div>
+            <span class="eyebrow">08 · CONNECT</span>
+            <h2>Get in <span>Touch</span></h2>
+          </div>
 
-
-            <div class="skill-cloud">
-
-                <span>Research</span>
-
-                <span>Image Processing</span>
-
-                <span>Healthcare</span>
-
-                <span>Machine Learning</span>
-
-                <span>
-                    Artificial Intelligence / Machine Learning
-                </span>
-
-                <span>
-                    Web Development
-                </span>
-
-                <span>
-                    Web Development &amp; Designing
-                </span>
-
-            </div>
+          <button class="home-return" data-view="home">
+            <i class="fa-solid fa-arrow-left"></i>
+            Home
+          </button>
 
         </div>
 
-    </div>
 
-</section>
+        <div class="contact-grid">
 
+          <div class="contact-intro">
 
-<!-- =========================
-     CERTIFICATES
-========================= -->
+            <span>ACADEMIC CONNECTION</span>
 
-<section class="section" id="certificates">
+            <h3>
+              Let's connect for
+              <em>research &amp; collaboration.</em>
+            </h3>
 
-    <div class="section-container">
-
-        <div class="section-number">
-            07 · CERTIFICATES &amp; ACHIEVEMENTS
-        </div>
-
-
-        <div class="publication-heading">
-
-            <h2>
-                A record of
-                <em>continuous learning.</em>
-            </h2>
-
-            <p class="muted">
-                Selected certificates and professional achievements.
-                Tap any certificate to view it in full size.
+            <p>
+              For academic discussions, research collaboration,
+              student guidance or professional communication, feel
+              free to get in touch.
             </p>
 
-        </div>
+          </div>
 
 
-        <div class="certificate-grid">
+          <div class="contact-details">
 
+            <a
+              class="contact-item"
+              href="tel:+918917556682"
+            >
 
-            <article class="certificate-item">
+              <div class="contact-icon">
+                <i class="fa-solid fa-phone"></i>
+              </div>
 
-                <button
-                    class="certificate-image"
-                    data-image="certificate-1.jpg"
-                    aria-label="Open certificate 1"
-                >
+              <div>
+                <span>Mobile</span>
+                <strong>+91 89175 56682</strong>
+              </div>
 
-                    <img
-                        src="certificate-1.jpg"
-                        alt="Professional certificate"
-                        loading="lazy"
-                    >
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
 
-                    <span>
-                        View Certificate ↗
-                    </span>
-
-                </button>
-
-                <div class="certificate-caption">
-
-                    <small>
-                        CERTIFICATE 01
-                    </small>
-
-                    <h3>
-                        Professional Achievement
-                    </h3>
-
-                </div>
-
-            </article>
-
-
-            <article class="certificate-item">
-
-                <button
-                    class="certificate-image"
-                    data-image="certificate-2.jpg"
-                    aria-label="Open certificate 2"
-                >
-
-                    <img
-                        src="certificate-2.jpg"
-                        alt="Professional certificate"
-                        loading="lazy"
-                    >
-
-                    <span>
-                        View Certificate ↗
-                    </span>
-
-                </button>
-
-                <div class="certificate-caption">
-
-                    <small>
-                        CERTIFICATE 02
-                    </small>
-
-                    <h3>
-                        Faculty Development
-                    </h3>
-
-                </div>
-
-            </article>
-
-
-            <article class="certificate-item">
-
-                <button
-                    class="certificate-image"
-                    data-image="certificate-3.jpg"
-                    aria-label="Open certificate 3"
-                >
-
-                    <img
-                        src="certificate-3.jpg"
-                        alt="Professional certificate"
-                        loading="lazy"
-                    >
-
-                    <span>
-                        View Certificate ↗
-                    </span>
-
-                </button>
-
-                <div class="certificate-caption">
-
-                    <small>
-                        CERTIFICATE 03
-                    </small>
-
-                    <h3>
-                        Digital Skills &amp; Mentoring
-                    </h3>
-
-                </div>
-
-            </article>
-
-
-            <article class="certificate-item">
-
-                <button
-                    class="certificate-image"
-                    data-image="certificate-4.jpg"
-                    aria-label="Open certificate 4"
-                >
-
-                    <img
-                        src="certificate-4.jpg"
-                        alt="Professional certificate"
-                        loading="lazy"
-                    >
-
-                    <span>
-                        View Certificate ↗
-                    </span>
-
-                </button>
-
-                <div class="certificate-caption">
-
-                    <small>
-                        CERTIFICATE 04
-                    </small>
-
-                    <h3>
-                        Research &amp; Peer Review
-                    </h3>
-
-                </div>
-
-            </article>
-
-
-        </div>
-
-
-        <div class="linkedin-box">
-
-            <div>
-
-                <small>
-                    LINKEDIN
-                </small>
-
-                <h3>
-                    More professional activity
-                </h3>
-
-                <p>
-                    Visit the LinkedIn profile for additional
-                    professional updates, achievements and activities.
-                </p>
-
-            </div>
+            </a>
 
 
             <a
-                href="https://www.linkedin.com/in/mr-soumya/"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="secondary-button"
+              class="contact-item"
+              href="https://www.linkedin.com/in/mr-soumya/"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-                View LinkedIn ↗
+
+              <div class="contact-icon">
+                <i class="fa-brands fa-linkedin-in"></i>
+              </div>
+
+              <div>
+                <span>LinkedIn</span>
+                <strong>Soumya Ranjan Mishra</strong>
+              </div>
+
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
             </a>
 
+
+            <div class="contact-item">
+
+              <div class="contact-icon">
+                <i class="fa-solid fa-building-columns"></i>
+              </div>
+
+              <div>
+                <span>Institution</span>
+                <strong>GIET University, Gunupur</strong>
+              </div>
+
+            </div>
+
+
+            <div class="contact-item">
+
+              <div class="contact-icon">
+                <i class="fa-solid fa-location-dot"></i>
+              </div>
+
+              <div>
+                <span>Location</span>
+                <strong>Gunupur, Odisha, India</strong>
+              </div>
+
+            </div>
+
+          </div>
+
         </div>
 
-    </div>
+      </div>
 
-</section>
+    </section>
 
-
-<!-- =========================
-     CONTACT
-========================= -->
-
-<section class="contact-section" id="contact">
-
-    <div class="section-container">
-
-        <div class="section-number light">
-            08 · CONTACT
-        </div>
+  </main>
 
 
-        <h2>
-            Let's start a
-            <em>conversation.</em>
-        </h2>
+  <!-- ================= FOOTER ================= -->
 
+  <footer class="site-footer">
 
-        <p>
-            For academic collaboration, professional networking
-            and research conversations, connect through LinkedIn.
-        </p>
+    <span>
+      © <span id="year"></span> Soumya Ranjan Mishra
+    </span>
 
+    <span>
+      Academic Portfolio
+    </span>
 
-        <a
-            href="https://www.linkedin.com/in/mr-soumya/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="gold-button"
-        >
-            Connect on LinkedIn ↗
-        </a>
-
-    </div>
-
-</section>
-
-
-</main>
-
-
-<!-- =========================
-     FOOTER
-========================= -->
-
-<footer>
-
-    <div class="footer-main">
-
-        <a href="#home" class="brand">
-
-            <span class="brand-mark">
-                SR
-            </span>
-
-            <span class="brand-name">
-                Soumya Ranjan Mishra
-            </span>
-
-        </a>
-
-
-        <p>
-            Assistant Professor · GIET University · Gunupur, Odisha
-        </p>
-
-
-        <a href="#home">
-            Back to top ↑
-        </a>
-
-    </div>
-
-
-    <div class="footer-bottom">
-
-        <span>
-            © <span id="year"></span>
-            Soumya Ranjan Mishra
-        </span>
-
-        <span>
-            Academic Portfolio
-        </span>
-
-    </div>
-
-</footer>
-
-
-<!-- =========================
-     CERTIFICATE LIGHTBOX
-========================= -->
-
-<div
-    class="lightbox"
-    id="lightbox"
-    aria-hidden="true"
->
-
-    <button
-        class="lightbox-close"
-        id="lightboxClose"
-        aria-label="Close certificate"
-    >
-        ×
-    </button>
-
-    <img
-        id="lightboxImage"
-        src=""
-        alt="Certificate preview"
-    >
+  </footer>
 
 </div>
 
 
+<!-- JavaScript -->
 <script src="script.js"></script>
 
 </body>
