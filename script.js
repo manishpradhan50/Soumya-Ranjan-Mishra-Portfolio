@@ -1500,7 +1500,7 @@ const initializePortfolioDOM = () => {
           await getDoc(
             doc(
               db,
-              "admin_users",
+              "admins",
               user.uid
             )
           );
