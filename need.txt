@@ -1,0 +1,547 @@
+# MASTER PROJECT PROMPT: COMPLETE MY ACADEMIC PORTFOLIO WEBSITE WITH FIREBASE
+
+Act as a senior full-stack web developer, Firebase engineer, JavaScript debugging expert, and UI/UX designer. Your task is to inspect, repair, and complete my existing academic portfolio website. Do not simply explain what I should do. Analyze the actual source code, identify the problems, and provide complete, working code changes that I can copy, paste, and run.
+
+## 1. PROJECT OVERVIEW
+
+I have an existing academic portfolio website for:
+
+**Profile owner:** Soumya Ranjan Mishra
+**Designation:** Assistant Professor at GIET University, Gunupur
+**Research interests:** Artificial Intelligence and Machine Learning
+**Frontend hosting:** Vercel
+**Database:** Firebase Cloud Firestore
+**Authentication:** Firebase Authentication using email and password
+**Admin interface:** An existing Owner Login modal and Portfolio Dashboard
+**Development environment:** Visual Studio Code, JavaScript, HTML, CSS, and a browser.
+
+My project already has a frontend, website navigation, a login modal, Firebase configuration, and an owner dashboard with different management sections.
+
+The login system is now working. Do not break it while completing the remaining work.
+
+I will upload the following materials whenever available:
+
+1. My existing website project as a ZIP file.
+2. My `script.js` file.
+3. My `index.html` file.
+4. My CSS files.
+5. My `Profile.pdf`, which contains the portfolio information.
+6. Any additional Firebase configuration or existing database structure that is needed.
+
+Treat the uploaded source code as the authoritative reference for the existing implementation. Inspect the actual files before making assumptions.
+
+## 2. MAIN OBJECTIVE
+
+I want the entire portfolio website to be powered by Firebase Firestore.
+
+Currently, I have a PDF containing the profile owner's information. I want the relevant information extracted from that PDF, organized into appropriate database collections, imported into Firestore, and displayed dynamically on the public website.
+
+I also want the authenticated owner to manage the portfolio through the existing dashboard.
+
+The website must support complete CRUD operations:
+
+* Create new records.
+* Read and display records.
+* Update existing records.
+* Delete records.
+
+When the owner changes information in the dashboard and saves it, the changes must be stored in Firestore and reflected on the public website.
+
+Do not merely populate the frontend with hardcoded data. The actual database must be the source of truth.
+
+## 3. FIRST TASK: AUDIT THE EXISTING PROJECT
+
+Before modifying code:
+
+1. Inspect every relevant HTML, CSS, and JavaScript file.
+2. Understand how Firebase is initialized.
+3. Identify the current Firebase Authentication login and logout handlers.
+4. Identify how owner authorization is checked.
+5. Inspect the existing Firestore collection names, document IDs, field names, and query logic.
+6. Identify every dashboard section and its existing controls.
+7. Check all buttons, forms, navigation handlers, modal handlers, image uploads, and save/delete actions.
+8. Identify undefined functions, missing imports, incorrect collection names, invalid field references, and unhandled promises.
+9. Check whether the public website currently uses hardcoded content or reads from Firestore.
+10. Identify any features that already work and preserve them.
+
+Create a concise audit report containing:
+
+* Existing working features.
+* Existing broken features.
+* Missing features.
+* Files that must be changed.
+* Any information that cannot be determined from the uploaded source code.
+
+Do not claim to have tested Firebase or deployed code unless you actually performed those tests.
+
+## 4. PROFILE INFORMATION TO IMPORT FROM PROFILE.PDF
+
+Read the uploaded PDF carefully and extract the actual information it contains. Do not invent missing details.
+
+### A. Profile
+
+The PDF identifies:
+
+* Name: Soumya Ranjan Mishra.
+* Current designation: Assistant Professor.
+* Institution: GIET University, Gunupur.
+* Research interests: Machine Learning and Artificial Intelligence.
+* Location: Berhampur, Odisha, India.
+* LinkedIn profile: [www.linkedin.com/in/mr-soumya](http://www.linkedin.com/in/mr-soumya).
+* Mobile number: 8917556682.
+
+The source document lists the current Assistant Professor position beginning in July 2025. Preserve the dates as written in the PDF rather than recalculating the duration.
+
+Import only appropriate professional information intended for public display.
+
+### B. Professional Experience
+
+The PDF lists these positions at GIET University, Gunupur:
+
+1. Assistant Professor — July 2025 to Present.
+2. Lecturer — September 2024 to June 2025.
+3. Teaching Assistant — January 2024 to August 2024.
+4. Research Assistant — July 2023 to December 2023.
+5. Intern — March 2023 to June 2023.
+
+It also lists:
+
+6. Intern at InternPe — October 2023 to November 2023.
+7. Intern at SYNC Intern's — October 2023 to November 2023.
+8. Intern at Oasis Infobyte — October 2023 to November 2023.
+
+Preserve the employer names, job titles, dates, and locations as provided. Do not invent responsibilities or achievements.
+
+### C. Education
+
+Import these education records:
+
+1. Master of Technology (MTech), Computer Science Engineering (AI/ML), GIET University, Gunupur — September 2023 to May 2025.
+2. Master of Computer Applications (MCA), Computer and Information Sciences and Support Services, Gandhi Institute of Engineering and Technology (GIET), Gunupur — July 2021 to May 2023.
+3. Bachelor's degree, Computer Software Engineering, Berhampur University — August 2018 to July 2021.
+
+Preserve the degree names and dates from the PDF.
+
+### D. Skills
+
+The PDF lists:
+
+* Research.
+* Image Processing.
+* Healthcare.
+
+Import these as skills. The PDF also mentions Artificial Intelligence, Machine Learning, Web Development, and Web Development and Designing in its certification section. Do not silently classify certifications as skills unless the source or existing website structure justifies it.
+
+### E. Certifications
+
+The PDF lists:
+
+* Machine Learning.
+* Artificial Intelligence/Machine Learning.
+* Web Development.
+* Web Development and Designing.
+
+No issuing organization, credential ID, or completion date is supplied for these entries. Leave those fields empty or null instead of inventing values.
+
+### F. Publications
+
+Import these five publication titles exactly as provided:
+
+1. Predicting diabetic patients coronary artery calcium score, deep learning using retinal images.
+2. Combating food insecurity through remote sensing and machine learning for enhanced crop yield prediction.
+3. Effective Diabetes Mellitus Prediction Using a Hybrid Ensemble Machine Learning Model with IoT.
+4. Integrating Multi-Omics Data for Advanced Diabetes Prediction and Understanding.
+5. Enhancing Diabetes Prediction using Hybrid Ensemble Approach.
+
+The PDF does not provide publication URLs, journal names, DOI numbers, publication dates, or author lists. Do not fabricate these fields.
+
+### G. Research Projects and Achievements
+
+The existing dashboard contains Research and Achievements sections.
+
+Inspect the PDF for information that genuinely belongs in these sections. If no separate research-project details or achievements are supplied, leave these sections empty and editable. Do not create fake research projects, awards, grants, or achievements.
+
+## 5. FIRESTORE DATABASE DESIGN
+
+First inspect the existing project to determine its actual schema.
+
+Prefer to reuse existing collection names and field structures wherever possible, because the website may already depend on them.
+
+If the current schema is absent or unsuitable, propose a clean structure similar to:
+
+* `admins`
+* `profile`
+* `experience`
+* `education`
+* `research`
+* `publications`
+* `achievements`
+* `skills`
+* `certifications`
+
+Use the actual project schema when it already exists rather than blindly creating duplicate collections.
+
+For each collection:
+
+1. Define a consistent document structure.
+2. Use stable document IDs where practical.
+3. Store dates consistently.
+4. Keep text, arrays, booleans, timestamps, and URLs in appropriate field types.
+5. Include ordering fields if the website needs custom display order.
+6. Preserve existing document IDs when updating existing records.
+7. Avoid duplicate records when the import script is run more than once.
+
+The `admins` collection is particularly important. The existing owner authorization logic reads an admin document using the authenticated user's UID. The admin document must therefore have the correct document ID and an appropriate owner role.
+
+Do not replace the admin authorization system with a public or hardcoded login.
+
+## 6. CREATE A REPEATABLE PDF DATA IMPORT
+
+Provide a practical, complete method for importing the PDF data into Firestore.
+
+Preferred approach: create a separate one-time import script that:
+
+1. Contains the extracted, verified PDF information.
+2. Uses the existing schema discovered in the project.
+3. Initializes Firebase safely.
+4. Imports data into the appropriate collections.
+5. Uses stable IDs or deterministic document IDs to avoid duplicates.
+6. Supports a dry-run or preview mode where practical.
+7. Reports how many records were created or updated.
+8. Handles errors and reports the affected collection and document.
+9. Does not overwrite the `admins` collection or existing authentication settings.
+10. Can be executed again safely without creating duplicate records.
+
+Use the Firebase client SDK only where appropriate. If a trusted administrative import method is needed, use the Firebase Admin SDK in a secure local Node.js script.
+
+Never put Firebase service-account private keys or other privileged credentials into frontend JavaScript, a public GitHub repository, or the Vercel client bundle.
+
+Explain exactly how to run the import script, where to put it, what dependencies it needs, and how to verify that the documents were inserted.
+
+Do not claim the data has been imported into my actual Firebase project unless you have actually performed that operation with authorized access.
+
+## 7. MAKE THE PUBLIC WEBSITE READ FROM FIRESTORE
+
+Update the existing public portfolio rendering logic so that the appropriate Firestore documents populate the website.
+
+Requirements:
+
+* Load the profile dynamically.
+* Load experience records dynamically.
+* Load education records dynamically.
+* Load research and publication records dynamically.
+* Load skills and certifications dynamically.
+* Load achievements when records exist.
+* Preserve the current website layout, theme, animations, and responsive design.
+* Preserve existing navigation and anchor links.
+* Handle loading states gracefully.
+* Handle empty collections gracefully.
+* Handle network errors without crashing the entire website.
+* Prevent duplicate rendering when data is reloaded.
+* Escape user-provided text before inserting it into HTML.
+* Validate external URLs before rendering links.
+* Avoid exposing private owner-only information on the public website.
+
+If Firestore returns no data, show a sensible empty state rather than silently displaying misleading placeholder information.
+
+The public website must reflect database changes rather than requiring edits to hardcoded HTML.
+
+## 8. COMPLETE THE OWNER DASHBOARD CRUD OPERATIONS
+
+Preserve the existing Portfolio Dashboard and its current visual design.
+
+For each relevant section, provide functional management controls.
+
+### Profile
+
+* Load current profile information.
+* Populate the edit form with existing values.
+* Save changes to Firestore.
+* Validate required fields.
+* Show success and failure messages.
+
+### Experience
+
+* Display all experience records.
+* Add a new position.
+* Edit an existing position.
+* Delete a position with confirmation.
+* Preserve chronological or custom sorting.
+
+### Education
+
+* Add, edit, and delete degrees.
+* Display institution, degree, specialization, and dates.
+* Preserve the correct ordering.
+
+### Research
+
+* Manage research entries supported by actual data.
+* Do not invent details missing from the source PDF.
+
+### Publications
+
+* Add new publications.
+* Edit titles and metadata.
+* Delete publications with confirmation.
+* Render available publication links only when valid URLs exist.
+
+### Achievements
+
+* Add, edit, and delete achievements.
+* Allow the section to remain empty until real data is provided.
+
+### Skills
+
+* Add new skills.
+* Edit or remove skills.
+* Prevent accidental duplicates.
+
+### Certifications
+
+* Add, edit, and delete certifications.
+* Support optional issuer, date, credential ID, and credential URL fields.
+* Never fabricate missing certificate metadata.
+
+All CRUD actions must actually read or write Firestore. A button that only changes the interface without saving the database is not acceptable.
+
+After each successful operation:
+
+1. Display a clear confirmation.
+2. Refresh the relevant dashboard data.
+3. Update the public portfolio if practical.
+4. Handle permission errors and other failures clearly.
+
+Disable repeated submissions while a write is pending, and show useful validation errors.
+
+## 9. FIREBASE AUTHENTICATION AND OWNER AUTHORIZATION
+
+The existing login system must continue to work.
+
+The owner flow should be:
+
+1. User enters an email and password.
+2. Firebase Authentication validates the credentials.
+3. The application obtains the authenticated user's UID.
+4. The application reads the corresponding `admins/{uid}` document.
+5. The application verifies that the account is active and has the appropriate owner role, according to the actual schema.
+6. Authorized owners can access the dashboard.
+7. Unauthorized users are signed out or denied access.
+8. Logout clears the owner interface and returns to the public website.
+
+Do not confuse successful authentication with owner authorization. Both checks are necessary.
+
+Handle authentication state changes correctly so that an authorized user is not accidentally logged out during a page refresh.
+
+Do not introduce redirect loops, duplicate event listeners, or repeated error messages.
+
+## 10. FIRESTORE SECURITY RULES
+
+The project previously used restrictive rules that denied all reads and writes:
+
+```
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
+```
+
+The rules were later changed to allow the authenticated user to read their own admin document.
+
+Create a complete, secure ruleset based on the actual collections and field structure.
+
+The rules must:
+
+* Allow public read access only to intended public portfolio content.
+* Deny public writes to portfolio data.
+* Allow only the authorized owner to create, update, or delete portfolio records.
+* Validate the owner's authenticated UID and admin role.
+* Restrict access to the `admins` collection.
+* Prevent public users from changing their own roles or granting themselves owner access.
+* Avoid allowing unauthenticated writes.
+* Protect any private fields or administrative data.
+* Account for Firestore's security-rule evaluation behavior when a rule reads an admin document.
+
+Do not use `allow read, write: if true` as a permanent solution.
+
+If collection-level public read access is too broad, suggest a dedicated public-content model or separate public and private documents.
+
+Explain how to publish and test the rules in Firebase Console.
+
+## 11. PROFILE IMAGE AND FILE STORAGE
+
+Inspect whether the existing website uses Firebase Storage for the profile image.
+
+If image uploads are supported, complete the upload flow:
+
+1. Select an image.
+2. Validate file type and size.
+3. Upload the file to the appropriate storage location.
+4. Save the resulting URL or storage path to Firestore.
+5. Update the public profile image.
+6. Handle failed uploads.
+7. Secure the upload path so unauthorized users cannot overwrite the owner's image.
+
+Do not claim that Firebase Storage is already configured unless the project confirms it.
+
+Do not use a base64 image stored directly in a Firestore document unless there is a compelling, justified reason.
+
+## 12. JAVASCRIPT AND FRONTEND RELIABILITY
+
+The existing project has previously encountered these errors:
+
+* `FirebaseError: Missing or insufficient permissions.`
+* `ReferenceError: getCollection is not defined`
+* `Error: You are not authorized as the profile owner.`
+* Firebase Authentication previously returned an invalid API key error.
+
+Some of these problems may already have been fixed. Verify the current uploaded source rather than assuming they remain unresolved.
+
+Check all Firebase imports and references, including:
+
+* `collection`
+* `doc`
+* `getDoc`
+* `getDocs`
+* `query`
+* `orderBy`
+* `addDoc`
+* `setDoc`
+* `updateDoc`
+* `deleteDoc`
+* `onSnapshot`
+* `serverTimestamp`, where needed
+* Authentication functions used by the existing project.
+
+Only import the functions actually required.
+
+Do not define conflicting helper functions or duplicate Firebase initialization.
+
+Check that:
+
+* Every button has a working handler.
+* Every form has the correct submit behavior.
+* Asynchronous operations are awaited appropriately.
+* Errors are handled without swallowing important information.
+* The public website works when the owner is logged out.
+* The owner dashboard works after login and after a page refresh.
+* The site remains responsive on mobile and desktop.
+* The browser console contains no avoidable errors.
+
+## 13. GITHUB AND VERCEL DEPLOYMENT
+
+The website is hosted on Vercel and its source is stored in GitHub.
+
+Preserve the existing deployment setup.
+
+Check:
+
+* Correct repository structure.
+* Correct entry-point paths.
+* Correct asset paths.
+* Correct Firebase project configuration.
+* Appropriate Vercel build settings.
+* Required environment variables, if the project uses them.
+* Firebase authorized domains for the production website.
+* Compatibility between local development and the deployed website.
+
+Explain the difference between a local change, a GitHub commit, and a Vercel deployment.
+
+If changes must be deployed, provide the exact Git commands appropriate to the actual project structure.
+
+Do not commit private credentials, service-account keys, passwords, or local environment files.
+
+Do not assume that pushing to GitHub automatically imports the PDF data into Firestore. Database import is a separate operation unless an explicitly configured secure automation performs it.
+
+## 14. TESTING REQUIREMENTS
+
+Create a practical test checklist and, where possible, automated tests.
+
+Test these scenarios:
+
+1. Public user can view published portfolio information.
+2. Public user cannot create, edit, or delete portfolio records.
+3. Correct owner can log in.
+4. Correct owner can access the dashboard.
+5. Unauthorized authenticated user cannot access owner operations.
+6. Owner can add an experience record.
+7. Owner can edit that record.
+8. Owner can delete that record.
+9. Owner can add and edit a publication.
+10. Changes persist after reloading the browser.
+11. Public content reflects the updated database.
+12. Empty collections do not crash the website.
+13. Invalid form input is rejected.
+14. Network and permission errors are displayed clearly.
+15. Logout prevents further owner operations.
+16. No duplicate records are created when the import is run again.
+17. Existing website navigation and styling still work.
+
+Use the Firebase Emulator Suite for security-rule testing if feasible.
+
+Distinguish between tests you actually ran and tests that still require me to run them.
+
+## 15. REQUIRED WORKING METHOD
+
+Work in this order:
+
+Phase 1: Inspect the uploaded project and PDF.
+
+Phase 2: Report the existing architecture, schema, and problems.
+
+Phase 3: Define or adapt the Firestore data model.
+
+Phase 4: Prepare and validate the one-time import script.
+
+Phase 5: Connect the public website to Firestore.
+
+Phase 6: Complete owner-dashboard CRUD operations.
+
+Phase 7: Finalize secure Firestore rules and image-upload security.
+
+Phase 8: Test the login flow, database operations, and public rendering.
+
+Phase 9: Prepare deployment instructions for GitHub and Vercel.
+
+After each phase, explain what was changed and what remains.
+
+If you have access to a coding environment, edit the actual files and return the complete modified project or a clearly organized set of patches.
+
+If you cannot edit the project directly, provide complete replacement code for each changed file, with the exact filename and location.
+
+Do not give incomplete fragments that depend on unexplained code. If a code fragment must be inserted into an existing file, identify the precise insertion point and all required imports.
+
+Do not replace the entire existing project with a generic template.
+
+Preserve working features and the established visual design.
+
+Do not ask me to repeat information already present in the uploaded files.
+
+If a necessary detail is missing, ask a specific question or state your assumption explicitly.
+
+## 16. FINAL DELIVERABLES
+
+I expect the following deliverables:
+
+1. A report identifying the actual problems in the existing project.
+2. A clear Firestore schema matching the website.
+3. A repeatable script for importing the PDF data.
+4. A working public website connected to Firestore.
+5. A working owner dashboard with complete CRUD operations.
+6. Secure Firestore rules.
+7. A functioning authentication and authorization flow.
+8. Working image uploads if supported by the existing project.
+9. A test checklist with actual test results where available.
+10. Deployment instructions for GitHub and Vercel.
+11. A list of remaining manual steps that require access to my Firebase or Vercel account.
+
+The ultimate goal is a professional, fully database-driven academic portfolio website where the owner manages all portfolio information from the dashboard and the public website automatically displays the saved data.
+
+**Start by inspecting the uploaded files. Do not begin by generating generic code or guessing the database structure.**
+
+
