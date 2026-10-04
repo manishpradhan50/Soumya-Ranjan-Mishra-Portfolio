@@ -53,15 +53,15 @@
       getDownloadURL
     } = firebaseStorage;
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyBZVKKk5VD3QLdfLTgYdTkK4xR4bsrnZ-k",
-      authDomain: "soumya-ranjan-portfolio.firebaseapp.com",
-      projectId: "soumya-ranjan-portfolio",
-      storageBucket: "soumya-ranjan-portfolio.firebasestorage.app",
-      messagingSenderId: "523526340312",
-      appId: "1:523526340312:web:9e35d672c887ebc34021ad",
-      measurementId: "G-8W496R2QXV"
-    };
+  const firebaseConfig = {
+    apiKey: "AIzaSyBZVKKk5VD3QLdfLTgYdTk4KxR4bsrnZ-k",
+    authDomain: "soumya-ranjan-portfolio.firebaseapp.com",
+    projectId: "soumya-ranjan-portfolio",
+    storageBucket: "soumya-ranjan-portfolio.firebasestorage.app",
+    messagingSenderId: "523526340312",
+    appId: "1:523526340312:web:9e35d672c887ebc34021ad",
+    measurementId: "G-8W496R2QXV"
+  };
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
