@@ -1,0 +1,123 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /*
+      PUBLIC PORTFOLIO DATA
+
+      Everyone can READ the portfolio.
+
+      Only the authenticated profile owner can:
+      - create
+      - update
+      - delete
+    */
+
+    function isOwner() {
+      return request.auth != null
+        && exists(
+          /databases/$(database)/documents/admins/$(request.auth.uid)
+        )
+        && get(
+          /databases/$(database)/documents/admins/$(request.auth.uid)
+        ).data.active == true;
+    }
+
+
+    /* ================= PROFILE ================= */
+
+    match /profile/{document} {
+
+      allow read: if true;
+
+      allow create, update, delete: if isOwner();
+    }
+
+
+    /* ================= EXPERIENCE ================= */
+
+    match /experiences/{document} {
+
+      allow read: if true;
+
+      allow create, update, delete: if isOwner();
+    }
+
+
+    /* ================= EDUCATION ================= */
+
+    match /education/{document} {
+
+      allow read: if true;
+
+      allow create, update, delete: if isOwner();
+    }
+
+
+    /* ================= RESEARCH ================= */
+
+    match /research/{document} {
+
+      allow read: if true;
+
+      allow create, update, delete: if isOwner();
+    }
+
+
+    /* ================= PUBLICATIONS ================= */
+
+    match /publications/{document} {
+
+      allow read: if true;
+
+      allow create, update, delete: if isOwner();
+    }
+
+
+    /* ================= ACHIEVEMENTS ================= */
+
+    match /achievements/{document} {
+
+      allow read: if true;
+
+      allow create, update, delete: if isOwner();
+    }
+
+
+    /* ================= SKILLS ================= */
+
+    match /skills/{document} {
+
+      allow read: if true;
+
+      allow create, update, delete: if isOwner();
+    }
+
+
+    /* ================= ADMIN ================= */
+
+    /*
+      The owner document itself cannot be modified
+      from the website.
+
+      You create it manually from Firebase Console.
+    */
+
+    match /admins/{userId} {
+
+      allow read: if request.auth != null
+        && request.auth.uid == userId;
+
+      allow create, update, delete: if false;
+    }
+
+
+    /* ================= DEFAULT DENY ================= */
+
+    match /{document=**} {
+
+      allow read, write: if false;
+    }
+  }
+}
