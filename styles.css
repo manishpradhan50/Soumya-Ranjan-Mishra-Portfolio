@@ -2007,6 +2007,233 @@ a {
 
 
 /* ======================================================
+   CERTIFICATIONS
+====================================================== */
+
+.certifications-wrapper {
+
+  margin-top: 60px;
+
+  padding-top: 45px;
+
+  border-top: 1px solid var(--border);
+
+}
+
+
+.certifications-heading {
+
+  margin-bottom: 26px;
+
+}
+
+
+.certifications-heading > span {
+
+  color: var(--gold);
+
+  font-size: 8px;
+
+  font-weight: 700;
+
+  letter-spacing: 1.5px;
+
+}
+
+
+.certifications-heading h3 {
+
+  margin-top: 10px;
+
+  color: var(--navy);
+
+  font-family: "Playfair Display", serif;
+
+  font-size: 28px;
+
+  line-height: 1.2;
+
+}
+
+
+.certifications-heading h3 span {
+
+  color: var(--gold);
+
+}
+
+
+.certifications-grid {
+
+  display: grid;
+
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+
+  gap: 18px;
+
+}
+
+
+.certification-card {
+
+  display: flex;
+
+  gap: 16px;
+
+  padding: 24px;
+
+  background: white;
+
+  border: 1px solid var(--border);
+
+  border-radius: 12px;
+
+  transition: transform .25s ease, box-shadow .25s ease;
+
+}
+
+
+.certification-card:hover {
+
+  transform: translateY(-3px);
+
+  box-shadow: 0 10px 30px rgba(8, 20, 38, .06);
+
+}
+
+
+.certification-icon {
+
+  flex: 0 0 auto;
+
+  width: 44px;
+
+  height: 44px;
+
+  display: grid;
+
+  place-items: center;
+
+  background: var(--cream);
+
+  color: var(--gold);
+
+  border-radius: 8px;
+
+  font-size: 18px;
+
+}
+
+
+.certification-info {
+
+  flex: 1 1 auto;
+
+}
+
+
+.certification-info .cert-date {
+
+  display: inline-block;
+
+  color: var(--gold);
+
+  font-size: 8px;
+
+  font-weight: 700;
+
+  letter-spacing: 1px;
+
+  margin-bottom: 4px;
+
+}
+
+
+.certification-info h3 {
+
+  color: var(--navy);
+
+  font-family: "Playfair Display", serif;
+
+  font-size: 18px;
+
+  line-height: 1.3;
+
+  margin-bottom: 6px;
+
+}
+
+
+.certification-info h4 {
+
+  color: var(--muted);
+
+  font-size: 11px;
+
+  font-weight: 500;
+
+  margin-bottom: 6px;
+
+}
+
+
+.certification-info small {
+
+  display: block;
+
+  color: var(--muted);
+
+  font-size: 10px;
+
+  margin-bottom: 8px;
+
+}
+
+
+.certification-info p {
+
+  color: var(--text);
+
+  font-size: 11px;
+
+  line-height: 1.6;
+
+  margin-top: 8px;
+
+}
+
+
+.certification-info .cert-link {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  margin-top: 10px;
+
+  color: var(--gold);
+
+  font-size: 11px;
+
+  font-weight: 600;
+
+  text-decoration: none;
+
+  transition: color .2s ease;
+
+}
+
+
+.certification-info .cert-link:hover {
+
+  color: var(--navy);
+
+}
+
+
+/* ======================================================
    CONTACT
 ====================================================== */
 

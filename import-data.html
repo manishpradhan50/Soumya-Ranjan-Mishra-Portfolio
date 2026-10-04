@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Firestore Data Import Utility | Soumya Ranjan Mishra</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <style>
+    body {
+      background: var(--off-white);
+      padding: 40px 20px;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .import-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: 0 10px 40px rgba(8, 20, 38, 0.05);
+    }
+    .header-box {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 25px;
+      margin-bottom: 30px;
+    }
+    .header-box span {
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+    .header-box h1 {
+      font-family: 'Playfair Display', serif;
+      color: var(--navy);
+      font-size: 32px;
+      margin-top: 8px;
+    }
+    .card-section {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .auth-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 15px;
+      align-items: end;
+      margin-top: 15px;
+    }
+    .auth-grid label {
+      display: flex;
+      flex-direction: column;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--navy);
+      gap: 6px;
+    }
+    .auth-grid input {
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 13px;
+    }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .badge-offline { background: #fee2e2; color: #991b1b; }
+    .badge-online { background: #dcfce7; color: #166534; }
+    .data-summary-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      font-size: 13px;
+    }
+    .data-summary-table th, .data-summary-table td {
+      padding: 10px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .data-summary-table th {
+      background: var(--off-white);
+      color: var(--navy);
+    }
+    .log-box {
+      background: #081426;
+      color: #e2e8f0;
+      font-family: monospace;
+      font-size: 12px;
+      padding: 20px;
+      border-radius: 8px;
+      max-height: 280px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      line-height: 1.6;
+    }
+    .btn-group {
+      display: flex;
+      gap: 14px;
+      margin: 25px 0;
+    }
+  </style>
+</head>
+<body>
+
+<div class="import-container">
+
+  <div class="header-box">
+    <span>DATABASE ADMINISTRATION UTILITY</span>
+    <h1>Profile PDF to Firestore Importer</h1>
+    <p style="color: var(--muted); font-size: 13px; margin-top: 8px; line-height: 1.6;">
+      This utility safely imports the verified records extracted from <strong>Profile.pdf</strong> directly into 
+      Firebase Cloud Firestore (Project: <code>soumya-ranjan-portfolio</code>). Uses deterministic document IDs to guarantee idempotency (safe to run multiple times).
+    </p>
+  </div>
+
+  <!-- AUTH SECTION -->
+  <div class="card-section">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <h3 style="font-size: 16px; color: var(--navy);">1. Owner Authentication</h3>
+      <div id="authStatus" class="status-badge badge-offline">
+        <i class="fa-solid fa-circle-xmark"></i> Not Logged In
+      </div>
+    </div>
+    <form id="authForm" class="auth-grid">
+      <label>
+        Owner Email
+        <input type="email" id="ownerEmail" required placeholder="Owner email address">
+      </label>
+      <label>
+        Password
+        <input type="password" id="ownerPassword" required placeholder="Owner password">
+      </label>
+      <button type="submit" class="primary-btn" id="loginBtn" style="padding: 11px 20px;">
+        <i class="fa-solid fa-lock"></i> Authenticate
+      </button>
+    </form>
+    <div id="authMessage" style="margin-top: 10px; font-size: 12px;"></div>
+  </div>
+
+  <!-- DATA PREVIEW SECTION -->
+  <div class="card-section" style="background: white;">
+    <h3 style="font-size: 16px; color: var(--navy); margin-bottom: 10px;">2. Verified PDF Data Overview</h3>
+    <table class="data-summary-table">
+      <thead>
+        <tr>
+          <th>Collection</th>
+          <th>Documents to Import</th>
+          <th>Deterministic Document IDs</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>profile</strong></td>
+          <td>1 record (Soumya Ranjan Mishra, Asst. Prof)</td>
+          <td><code>main</code></td>
+          <td id="status-profile">Ready</td>
+        </tr>
+        <tr>
+          <td><strong>experiences</strong></td>
+          <td>8 records (5 GIET Univ, 3 Internships)</td>
+          <td><code>exp-1</code> to <code>exp-8</code></td>
+          <td id="status-experiences">Ready</td>
+        </tr>
+        <tr>
+          <td><strong>education</strong></td>
+          <td>3 records (M.Tech AI/ML, MCA, Bachelor)</td>
+          <td><code>edu-1</code> to <code>edu-3</code></td>
+          <td id="status-education">Ready</td>
+        </tr>
+        <tr>
+          <td><strong>skills</strong></td>
+          <td>3 records (Research, Image Processing, Healthcare)</td>
+          <td><code>skill-1</code> to <code>skill-3</code></td>
+          <td id="status-skills">Ready</td>
+        </tr>
+        <tr>
+          <td><strong>certifications</strong></td>
+          <td>4 records (ML, AI/ML, Web Dev, Web Designing)</td>
+          <td><code>cert-1</code> to <code>cert-4</code></td>
+          <td id="status-certifications">Ready</td>
+        </tr>
+        <tr>
+          <td><strong>publications</strong></td>
+          <td>5 scholarly titles</td>
+          <td><code>pub-1</code> to <code>pub-5</code></td>
+          <td id="status-publications">Ready</td>
+        </tr>
+        <tr>
+          <td><strong>research</strong></td>
+          <td>2 research areas</td>
+          <td><code>res-1</code>, <code>res-2</code></td>
+          <td id="status-research">Ready</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ACTION SECTION -->
+  <div class="btn-group">
+    <button type="button" class="primary-btn" id="startImportBtn" disabled style="padding: 14px 28px; font-size: 14px;">
+      <i class="fa-solid fa-cloud-arrow-up"></i> Execute Live Import to Firestore
+    </button>
+    <a href="index.html" class="outline-btn" style="text-decoration: none; padding: 14px 20px; font-size: 14px;">
+      <i class="fa-solid fa-globe"></i> Return to Portfolio Website
+    </a>
+  </div>
+
+  <!-- PROGRESS LOGS -->
+  <div>
+    <h3 style="font-size: 14px; color: var(--navy); margin-bottom: 8px;">Execution Logs:</h3>
+    <div class="log-box" id="logBox">Awaiting authentication and execution...</div>
+  </div>
+
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+  import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+  import { PORTFOLIO_DATA } from "./portfolio-data.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBZVKKk5VD3QLdfLTgYdTk4KxR4bsrnZ-k",
+    authDomain: "soumya-ranjan-portfolio.firebaseapp.com",
+    projectId: "soumya-ranjan-portfolio",
+    storageBucket: "soumya-ranjan-portfolio.firebasestorage.app",
+    messagingSenderId: "523526340312",
+    appId: "1:523526340312:web:9e35d672c887ebc34021ad",
+    measurementId: "G-8W496R2QXV"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  const authStatus = document.getElementById("authStatus");
+  const authForm = document.getElementById("authForm");
+  const authMessage = document.getElementById("authMessage");
+  const startImportBtn = document.getElementById("startImportBtn");
+  const logBox = document.getElementById("logBox");
+
+  let currentUser = null;
+
+  function log(msg) {
+    const time = new Date().toLocaleTimeString();
+    logBox.textContent += `[${time}] ${msg}\n`;
+    logBox.scrollTop = logBox.scrollHeight;
+  }
+
+  onAuthStateChanged(auth, async (user) => {
+    currentUser = user;
+    if (user) {
+      try {
+        const adminSnap = await getDoc(doc(db, "admins", user.uid));
+        if (adminSnap.exists() && adminSnap.data().role === "owner") {
+          authStatus.className = "status-badge badge-online";
+          authStatus.innerHTML = '<i class="fa-solid fa-circle-check"></i> Authenticated Owner (' + user.email + ')';
+          authMessage.style.color = "var(--success)";
+          authMessage.textContent = "Authorized as Owner. Ready to perform import.";
+          startImportBtn.disabled = false;
+          log(`User authenticated as owner: ${user.email} (UID: ${user.uid})`);
+        } else {
+          authStatus.className = "status-badge badge-offline";
+          authStatus.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Not Authorized as Owner';
+          authMessage.style.color = "var(--danger)";
+          authMessage.textContent = "Account authenticated, but lacks 'owner' role in admins collection.";
+          startImportBtn.disabled = true;
+          log(`Warning: Account ${user.email} is not in admins with role="owner".`);
+        }
+      } catch (err) {
+        log(`Authorization check note: ${err.message}`);
+        // Allow attempt if rules allow write
+        startImportBtn.disabled = false;
+      }
+    } else {
+      authStatus.className = "status-badge badge-offline";
+      authStatus.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> Not Logged In';
+      startImportBtn.disabled = true;
+    }
+  });
+
+  authForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = document.getElementById("ownerEmail").value.trim();
+    const password = document.getElementById("ownerPassword").value;
+    const btn = document.getElementById("loginBtn");
+
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Authenticating...';
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      log("Sign in successful.");
+    } catch (err) {
+      authMessage.style.color = "var(--danger)";
+      authMessage.textContent = "Sign in failed: " + err.message;
+      log("Sign in error: " + err.message);
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-lock"></i> Authenticate';
+    }
+  });
+
+  startImportBtn.addEventListener("click", async () => {
+    startImportBtn.disabled = true;
+    startImportBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Importing Data...';
+    log("=== STARTING FIRESTORE DATA IMPORT ===");
+
+    let total = 0;
+    let errors = 0;
+
+    try {
+      // 1. Profile
+      log("Importing Profile: profile/main...");
+      await setDoc(doc(db, "profile", "main"), PORTFOLIO_DATA.profile, { merge: true });
+      document.getElementById("status-profile").innerHTML = '<span style="color:green">✓ Imported (1)</span>';
+      total++;
+      log("✓ Profile imported successfully.");
+
+      // 2. Experiences
+      log(`Importing Experiences (${PORTFOLIO_DATA.experiences.length} docs)...`);
+      for (const exp of PORTFOLIO_DATA.experiences) {
+        await setDoc(doc(db, "experiences", exp.id), exp, { merge: true });
+        total++;
+      }
+      document.getElementById("status-experiences").innerHTML = `<span style="color:green">✓ Imported (${PORTFOLIO_DATA.experiences.length})</span>`;
+      log(`✓ Experiences imported successfully.`);
+
+      // 3. Education
+      log(`Importing Education (${PORTFOLIO_DATA.education.length} docs)...`);
+      for (const edu of PORTFOLIO_DATA.education) {
+        await setDoc(doc(db, "education", edu.id), edu, { merge: true });
+        total++;
+      }
+      document.getElementById("status-education").innerHTML = `<span style="color:green">✓ Imported (${PORTFOLIO_DATA.education.length})</span>`;
+      log(`✓ Education imported successfully.`);
+
+      // 4. Skills
+      log(`Importing Skills (${PORTFOLIO_DATA.skills.length} docs)...`);
+      for (const skill of PORTFOLIO_DATA.skills) {
+        await setDoc(doc(db, "skills", skill.id), skill, { merge: true });
+        total++;
+      }
+      document.getElementById("status-skills").innerHTML = `<span style="color:green">✓ Imported (${PORTFOLIO_DATA.skills.length})</span>`;
+      log(`✓ Skills imported successfully.`);
+
+      // 5. Certifications
+      log(`Importing Certifications (${PORTFOLIO_DATA.certifications.length} docs)...`);
+      for (const cert of PORTFOLIO_DATA.certifications) {
+        await setDoc(doc(db, "certifications", cert.id), cert, { merge: true });
+        total++;
+      }
+      document.getElementById("status-certifications").innerHTML = `<span style="color:green">✓ Imported (${PORTFOLIO_DATA.certifications.length})</span>`;
+      log(`✓ Certifications imported successfully.`);
+
+      // 6. Publications
+      log(`Importing Publications (${PORTFOLIO_DATA.publications.length} docs)...`);
+      for (const pub of PORTFOLIO_DATA.publications) {
+        await setDoc(doc(db, "publications", pub.id), pub, { merge: true });
+        total++;
+      }
+      document.getElementById("status-publications").innerHTML = `<span style="color:green">✓ Imported (${PORTFOLIO_DATA.publications.length})</span>`;
+      log(`✓ Publications imported successfully.`);
+
+      // 7. Research
+      log(`Importing Research Interests (${PORTFOLIO_DATA.research.length} docs)...`);
+      for (const res of PORTFOLIO_DATA.research) {
+        await setDoc(doc(db, "research", res.id), res, { merge: true });
+        total++;
+      }
+      document.getElementById("status-research").innerHTML = `<span style="color:green">✓ Imported (${PORTFOLIO_DATA.research.length})</span>`;
+      log(`✓ Research interests imported successfully.`);
+
+      log(`=== IMPORT COMPLETED: ${total} documents written, ${errors} errors ===`);
+      alert("All PDF data was imported into Firestore successfully! You can now view the portfolio website.");
+    } catch (err) {
+      log(`[ERROR during import]: ${err.message}`);
+      alert("Import error: " + err.message);
+    } finally {
+      startImportBtn.disabled = false;
+      startImportBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Re-run Import';
+    }
+  });
+</script>
+
+</body>
+</html>

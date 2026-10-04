@@ -6,7 +6,7 @@ service cloud.firestore {
     /*
       PUBLIC PORTFOLIO DATA
 
-      Everyone can READ the portfolio.
+      Everyone can READ the public portfolio collections.
 
       Only the authenticated profile owner can:
       - create
@@ -16,21 +16,21 @@ service cloud.firestore {
 
     function isOwner() {
       return request.auth != null
-        && exists(
-          /databases/$(database)/documents/admins/$(request.auth.uid)
+        && exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+        && (
+          get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.role == 'owner'
         )
-        && get(
-          /databases/$(database)/documents/admins/$(request.auth.uid)
-        ).data.active == true;
+        && (
+          !('active' in get(/databases/$(database)/documents/admins/$(request.auth.uid)).data)
+          || get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.active == true
+        );
     }
 
 
     /* ================= PROFILE ================= */
 
     match /profile/{document} {
-
       allow read: if true;
-
       allow create, update, delete: if isOwner();
     }
 
@@ -38,9 +38,12 @@ service cloud.firestore {
     /* ================= EXPERIENCE ================= */
 
     match /experiences/{document} {
-
       allow read: if true;
+      allow create, update, delete: if isOwner();
+    }
 
+    match /experience/{document} {
+      allow read: if true;
       allow create, update, delete: if isOwner();
     }
 
@@ -48,9 +51,7 @@ service cloud.firestore {
     /* ================= EDUCATION ================= */
 
     match /education/{document} {
-
       allow read: if true;
-
       allow create, update, delete: if isOwner();
     }
 
@@ -58,9 +59,7 @@ service cloud.firestore {
     /* ================= RESEARCH ================= */
 
     match /research/{document} {
-
       allow read: if true;
-
       allow create, update, delete: if isOwner();
     }
 
@@ -68,9 +67,7 @@ service cloud.firestore {
     /* ================= PUBLICATIONS ================= */
 
     match /publications/{document} {
-
       allow read: if true;
-
       allow create, update, delete: if isOwner();
     }
 
@@ -78,9 +75,7 @@ service cloud.firestore {
     /* ================= ACHIEVEMENTS ================= */
 
     match /achievements/{document} {
-
       allow read: if true;
-
       allow create, update, delete: if isOwner();
     }
 
@@ -88,9 +83,15 @@ service cloud.firestore {
     /* ================= SKILLS ================= */
 
     match /skills/{document} {
-
       allow read: if true;
+      allow create, update, delete: if isOwner();
+    }
 
+
+    /* ================= CERTIFICATIONS ================= */
+
+    match /certifications/{document} {
+      allow read: if true;
       allow create, update, delete: if isOwner();
     }
 
@@ -98,25 +99,20 @@ service cloud.firestore {
     /* ================= ADMIN ================= */
 
     /*
-      The owner document itself cannot be modified
-      from the website.
-
-      You create it manually from Firebase Console.
+      The owner document itself cannot be modified from the client SDK.
+      Only the authenticated user can read their own admin doc to verify their role.
+      You create it manually from Firebase Console or via Admin SDK.
     */
 
     match /admins/{userId} {
-
-      allow read: if request.auth != null
-        && request.auth.uid == userId;
-
-      allow create, update, delete: if false;
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow write: if false;
     }
 
 
     /* ================= DEFAULT DENY ================= */
 
     match /{document=**} {
-
       allow read, write: if false;
     }
   }

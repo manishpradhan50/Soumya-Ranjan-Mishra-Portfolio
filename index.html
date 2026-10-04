@@ -1015,6 +1015,24 @@
     </div>
 
 
+    <div class="certifications-wrapper">
+
+      <div class="certifications-heading">
+
+        <span>CREDENTIALS &amp; QUALIFICATIONS</span>
+
+        <h3>Professional <span>Certifications</span></h3>
+
+      </div>
+
+      <div
+        class="certifications-grid"
+        id="certificationsContainer"
+      ></div>
+
+    </div>
+
+
   </div>
 
 </section>
@@ -1354,7 +1372,10 @@
 >
 
 
-  <div class="modal-backdrop"></div>
+  <div
+    class="modal-backdrop"
+    data-close="adminModal"
+  ></div>
 
 
   <div class="admin-panel">
@@ -1500,6 +1521,18 @@
 
         <button
           class="admin-tab"
+          data-admin-tab="certifications"
+        >
+
+          <i class="fa-solid fa-certificate"></i>
+
+          Certifications
+
+        </button>
+
+
+        <button
+          class="admin-tab"
           data-admin-tab="account"
         >
 
@@ -1626,6 +1659,17 @@
 
                 <input
                   name="role_line"
+                >
+
+              </label>
+
+
+              <label>
+
+                Department
+
+                <input
+                  name="department"
                 >
 
               </label>
@@ -1956,6 +2000,51 @@
 
 
           </form>
+
+
+          <div
+            class="account-card"
+            style="margin-top:25px;"
+          >
+
+            <div>
+
+              <span>
+                DATABASE MANAGEMENT
+              </span>
+
+              <strong
+                style="display:block;margin:6px 0 10px 0;font-size:15px;color:var(--navy);"
+              >
+                Import Verified PDF Data to Firestore
+              </strong>
+
+              <p
+                style="font-size:11px;color:var(--muted);margin-bottom:14px;line-height:1.6;"
+              >
+                Populate Firestore with verified data extracted from Profile.pdf (Profile, 8 Experiences, 3 Education, 3 Skills, 4 Certifications, 5 Publications, 2 Research areas). Uses deterministic IDs to prevent duplicates.
+              </p>
+
+              <button
+                type="button"
+                class="primary-btn"
+                id="btnImportPdfData"
+              >
+
+                <i class="fa-solid fa-file-import"></i>
+
+                Import Verified PDF Data
+
+              </button>
+
+              <div
+                id="importStatus"
+                style="margin-top:12px;font-size:11px;display:none;"
+              ></div>
+
+            </div>
+
+          </div>
 
 
         </div>
