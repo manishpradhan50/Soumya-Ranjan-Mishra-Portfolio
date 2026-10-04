@@ -1819,6 +1819,192 @@ main {
 
 
 /* ======================================================
+   PUBLICATION FILTER TOOLBAR
+====================================================== */
+
+.publication-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding: 14px 20px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  transition: background-color .3s ease, border-color .3s ease;
+}
+
+.pub-filter-group {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.pub-filter-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--navy);
+}
+
+.pub-filter-label i {
+  color: var(--gold);
+  font-size: 12px;
+}
+
+.pub-filter-pills {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pub-filter-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: var(--cream);
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.pub-filter-pill:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  transform: translateY(-1px);
+}
+
+.pub-filter-pill.active {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #081426;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(185, 148, 91, 0.3);
+}
+
+.pub-filter-pill .pub-count {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 10px;
+  background: rgba(8, 20, 38, 0.08);
+}
+
+.pub-filter-pill.active .pub-count {
+  background: rgba(8, 20, 38, 0.2);
+  color: #081426;
+}
+
+[data-theme="dark"] .pub-filter-pill {
+  background: #141f32;
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .pub-filter-pill:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+[data-theme="dark"] .pub-filter-pill.active {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #081426;
+}
+
+[data-theme="dark"] .pub-filter-pill .pub-count {
+  background: rgba(255, 255, 255, 0.1);
+  color: inherit;
+}
+
+[data-theme="dark"] .pub-filter-pill.active .pub-count {
+  background: rgba(8, 20, 38, 0.25);
+  color: #081426;
+}
+
+.pub-filter-select-wrapper {
+  position: relative;
+  display: none;
+}
+
+.pub-year-select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 7px 32px 7px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  background: var(--cream);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  outline: none;
+  transition: border-color .2s ease;
+}
+
+.pub-year-select:focus {
+  border-color: var(--gold);
+}
+
+[data-theme="dark"] .pub-year-select {
+  background: #141f32;
+  color: #f1f5f9;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.pub-select-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 10px;
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.pub-filter-stats {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.pub-filter-stats strong {
+  color: var(--gold);
+}
+
+@keyframes pubRowFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.publication-table tbody tr {
+  animation: pubRowFadeIn 0.2s ease-out;
+}
+
+/* ======================================================
    PUBLICATION TABLE
 ====================================================== */
 
@@ -3917,6 +4103,37 @@ main {
 
   .section-heading h2 {
     font-size: 36px;
+  }
+
+  .publication-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 12px 14px;
+  }
+
+  .pub-filter-group {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .pub-filter-select-wrapper {
+    display: block;
+    width: 100%;
+  }
+
+  .pub-year-select {
+    width: 100%;
+  }
+
+  .pub-filter-pills {
+    display: none;
+  }
+
+  .pub-filter-stats {
+    text-align: right;
+    font-size: 10px;
   }
 }
 

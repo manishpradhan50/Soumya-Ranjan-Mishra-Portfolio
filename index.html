@@ -861,6 +861,80 @@
 
 
 
+    <!-- ======================================================
+         PUBLICATION YEAR FILTER TOOLBAR
+    ====================================================== -->
+
+    <div
+      class="publication-toolbar"
+      id="publicationToolbar"
+    >
+
+      <div class="pub-filter-group">
+
+        <div class="pub-filter-label">
+
+          <i class="fa-solid fa-filter"></i>
+
+          <span>Filter by Year:</span>
+
+        </div>
+
+
+        <div
+          class="pub-filter-pills"
+          id="publicationYearPills"
+          role="tablist"
+          aria-label="Filter publications by year"
+        >
+
+          <button
+            type="button"
+            class="pub-filter-pill active"
+            data-year="all"
+          >
+
+            All
+
+          </button>
+
+        </div>
+
+
+        <div class="pub-filter-select-wrapper">
+
+          <select
+            id="publicationYearSelect"
+            class="pub-year-select"
+            aria-label="Filter publications by year"
+          >
+
+            <option value="all">
+              All Years
+            </option>
+
+          </select>
+
+          <i class="fa-solid fa-chevron-down pub-select-icon"></i>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="pub-filter-stats"
+        id="publicationFilterStats"
+      >
+
+        Showing all publications
+
+      </div>
+
+    </div>
+
+
+
     <div class="publication-table-wrapper">
 
 

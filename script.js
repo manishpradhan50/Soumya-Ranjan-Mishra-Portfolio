@@ -521,6 +521,10 @@
       const importStatus = document.getElementById("importStatus");
       const themeToggleBtn = document.getElementById("themeToggleBtn");
       const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+      const publicationToolbar = document.getElementById("publicationToolbar");
+      const publicationYearPills = document.getElementById("publicationYearPills");
+      const publicationYearSelect = document.getElementById("publicationYearSelect");
+      const publicationFilterStats = document.getElementById("publicationFilterStats");
 
       /* ======================================================
          THEME (DARK / LIGHT MODE)
@@ -578,6 +582,8 @@
       let currentProfile = null;
       let activeCollection = null;
       let editingDocumentId = null;
+      let allPublications = [];
+      let selectedPublicationYear = "all";
 
       /* ======================================================
          HELPERS
@@ -981,14 +987,89 @@
       }
 
       /* ======================================================
-         PUBLICATIONS RENDER
+         PUBLICATIONS RENDER & YEAR FILTER
       ====================================================== */
 
-      function renderPublications(items) {
+      function updatePublicationFilterUI(yearCounts, sortedYears, unspecifiedCount) {
+        if (!publicationToolbar) return;
+
+        if (!allPublications || allPublications.length === 0) {
+          publicationToolbar.style.display = "none";
+          return;
+        }
+
+        publicationToolbar.style.display = "flex";
+
+        // Render pills
+        if (publicationYearPills) {
+          let pillsHTML = `
+            <button
+              type="button"
+              class="pub-filter-pill ${selectedPublicationYear === "all" ? "active" : ""}"
+              data-year="all"
+              role="tab"
+              aria-selected="${selectedPublicationYear === "all"}"
+            >
+              All <span class="pub-count">${allPublications.length}</span>
+            </button>
+          `;
+
+          sortedYears.forEach(y => {
+            const count = yearCounts[y] || 0;
+            const isActive = selectedPublicationYear === y;
+            pillsHTML += `
+              <button
+                type="button"
+                class="pub-filter-pill ${isActive ? "active" : ""}"
+                data-year="${escapeHTML(y)}"
+                role="tab"
+                aria-selected="${isActive}"
+              >
+                ${escapeHTML(y)} <span class="pub-count">${count}</span>
+              </button>
+            `;
+          });
+
+          if (unspecifiedCount > 0 && sortedYears.length > 0) {
+            const isActive = selectedPublicationYear === "unspecified";
+            pillsHTML += `
+              <button
+                type="button"
+                class="pub-filter-pill ${isActive ? "active" : ""}"
+                data-year="unspecified"
+                role="tab"
+                aria-selected="${isActive}"
+              >
+                Other <span class="pub-count">${unspecifiedCount}</span>
+              </button>
+            `;
+          }
+
+          publicationYearPills.innerHTML = pillsHTML;
+        }
+
+        // Render select dropdown
+        if (publicationYearSelect) {
+          let selectHTML = `<option value="all">All Years (${allPublications.length})</option>`;
+          sortedYears.forEach(y => {
+            const count = yearCounts[y] || 0;
+            selectHTML += `<option value="${escapeHTML(y)}">${escapeHTML(y)} (${count})</option>`;
+          });
+
+          if (unspecifiedCount > 0 && sortedYears.length > 0) {
+            selectHTML += `<option value="unspecified">Other / Unspecified (${unspecifiedCount})</option>`;
+          }
+
+          publicationYearSelect.innerHTML = selectHTML;
+          publicationYearSelect.value = selectedPublicationYear;
+        }
+      }
+
+      function updatePublicationTable(filtered) {
         const tbody = document.getElementById("publicationsTableBody");
         if (!tbody) return;
 
-        if (!items || !items.length) {
+        if (!allPublications || !allPublications.length) {
           tbody.innerHTML = `
             <tr>
               <td colspan="8" style="text-align:center;padding:35px">
@@ -999,7 +1080,19 @@
           return;
         }
 
-        tbody.innerHTML = items.map((item, index) => {
+        if (!filtered || !filtered.length) {
+          const yearDisplay = selectedPublicationYear === "unspecified" ? "unspecified year" : selectedPublicationYear;
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="8" style="text-align:center;padding:35px">
+                No publications found for ${escapeHTML(yearDisplay)}.
+              </td>
+            </tr>
+          `;
+          return;
+        }
+
+        tbody.innerHTML = filtered.map((item, index) => {
           const link = getPublicationLink(item);
           const doi = item.doi ? escapeHTML(item.doi) : "—";
 
@@ -1022,6 +1115,102 @@
             </tr>
           `;
         }).join("");
+      }
+
+      function updatePublicationStats(filtered) {
+        if (!publicationFilterStats) return;
+
+        if (!allPublications || !allPublications.length) {
+          publicationFilterStats.textContent = "";
+          return;
+        }
+
+        if (selectedPublicationYear === "all") {
+          publicationFilterStats.innerHTML = `Showing all <strong>${allPublications.length}</strong> publications`;
+        } else if (selectedPublicationYear === "unspecified") {
+          publicationFilterStats.innerHTML = `Showing <strong>${filtered.length}</strong> of <strong>${allPublications.length}</strong> publications (Other)`;
+        } else {
+          publicationFilterStats.innerHTML = `Showing <strong>${filtered.length}</strong> of <strong>${allPublications.length}</strong> publications (${escapeHTML(selectedPublicationYear)})`;
+        }
+      }
+
+      function filterAndRenderPublications() {
+        // Collect year statistics
+        const yearCounts = {};
+        let unspecifiedCount = 0;
+
+        allPublications.forEach(item => {
+          const y = (item.year !== null && item.year !== undefined) ? String(item.year).trim() : "";
+          if (y) {
+            yearCounts[y] = (yearCounts[y] || 0) + 1;
+          } else {
+            unspecifiedCount++;
+          }
+        });
+
+        const sortedYears = Object.keys(yearCounts).sort((a, b) => {
+          const numA = Number(a);
+          const numB = Number(b);
+          if (!isNaN(numA) && !isNaN(numB)) {
+            return numB - numA;
+          }
+          return b.localeCompare(a);
+        });
+
+        // Validate selectedPublicationYear
+        if (selectedPublicationYear !== "all") {
+          if (selectedPublicationYear === "unspecified") {
+            if (unspecifiedCount === 0) selectedPublicationYear = "all";
+          } else if (!sortedYears.includes(selectedPublicationYear)) {
+            selectedPublicationYear = "all";
+          }
+        }
+
+        // Filter publications
+        let filtered = allPublications;
+        if (selectedPublicationYear === "unspecified") {
+          filtered = allPublications.filter(item => {
+            const y = (item.year !== null && item.year !== undefined) ? String(item.year).trim() : "";
+            return !y;
+          });
+        } else if (selectedPublicationYear !== "all") {
+          filtered = allPublications.filter(item => {
+            const y = (item.year !== null && item.year !== undefined) ? String(item.year).trim() : "";
+            return y === selectedPublicationYear;
+          });
+        }
+
+        updatePublicationFilterUI(yearCounts, sortedYears, unspecifiedCount);
+        updatePublicationTable(filtered);
+        updatePublicationStats(filtered);
+      }
+
+      function renderPublications(items) {
+        allPublications = Array.isArray(items) ? items : [];
+        filterAndRenderPublications();
+      }
+
+      // Initialize Publication Year Filter interactive controls
+      if (publicationYearPills) {
+        publicationYearPills.addEventListener("click", event => {
+          const btn = event.target.closest(".pub-filter-pill");
+          if (!btn) return;
+          const yearVal = btn.dataset.year;
+          if (yearVal && yearVal !== selectedPublicationYear) {
+            selectedPublicationYear = yearVal;
+            filterAndRenderPublications();
+          }
+        });
+      }
+
+      if (publicationYearSelect) {
+        publicationYearSelect.addEventListener("change", event => {
+          const yearVal = event.target.value;
+          if (yearVal && yearVal !== selectedPublicationYear) {
+            selectedPublicationYear = yearVal;
+            filterAndRenderPublications();
+          }
+        });
       }
 
       /* ======================================================
