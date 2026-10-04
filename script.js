@@ -519,6 +519,55 @@
       const toastMessage = document.getElementById("toastMessage");
       const btnImportPdfData = document.getElementById("btnImportPdfData");
       const importStatus = document.getElementById("importStatus");
+      const themeToggleBtn = document.getElementById("themeToggleBtn");
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+
+      /* ======================================================
+         THEME (DARK / LIGHT MODE)
+      ====================================================== */
+
+      function applyTheme(theme) {
+        document.documentElement.setAttribute("data-theme", theme);
+        try {
+          localStorage.setItem("portfolio_theme", theme);
+        } catch (e) {}
+
+        if (themeToggleBtn) {
+          themeToggleBtn.innerHTML = theme === "dark"
+            ? '<i class="fa-solid fa-sun"></i>'
+            : '<i class="fa-solid fa-moon"></i>';
+          themeToggleBtn.setAttribute(
+            "title",
+            theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"
+          );
+          themeToggleBtn.setAttribute(
+            "aria-label",
+            theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"
+          );
+        }
+
+        if (metaThemeColor) {
+          metaThemeColor.setAttribute("content", theme === "dark" ? "#0a1120" : "#081426");
+        }
+      }
+
+      let savedTheme = null;
+      try {
+        savedTheme = localStorage.getItem("portfolio_theme");
+      } catch (e) {}
+
+      const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const initialTheme = savedTheme || (prefersDark ? "dark" : "light");
+      applyTheme(initialTheme);
+
+      if (themeToggleBtn) {
+        themeToggleBtn.addEventListener("click", () => {
+          const currentTheme = document.documentElement.getAttribute("data-theme") || "light";
+          const newTheme = currentTheme === "dark" ? "light" : "dark";
+          applyTheme(newTheme);
+          showToast(newTheme === "dark" ? "Dark Mode enabled" : "Light Mode enabled", "success");
+        });
+      }
 
       /* ======================================================
          STATE
@@ -732,6 +781,9 @@
 
         const brandName = document.getElementById("brandName");
         if (brandName) brandName.textContent = data.full_name || "Soumya Ranjan Mishra";
+
+        const footerBrandName = document.getElementById("footerBrandName");
+        if (footerBrandName) footerBrandName.textContent = data.full_name || "Soumya Ranjan Mishra";
 
         const heroLabel = document.getElementById("heroLabel");
         if (heroLabel) heroLabel.textContent = data.hero_label || "ASSISTANT PROFESSOR · RESEARCHER · MENTOR";
