@@ -685,28 +685,33 @@
           let items = [];
 
           try {
-            const q = query(colRef, orderBy("sort_order", "asc"));
-            const snapshot = await getDocs(q);
-            snapshot.forEach(docSnap => {
-              items.push({ id: docSnap.id, ...docSnap.data() });
-            });
-          } catch (orderErr) {
-            // Fallback: Retrieve all documents without orderBy index constraint
             const snapshot = await getDocs(colRef);
             snapshot.forEach(docSnap => {
               items.push({ id: docSnap.id, ...docSnap.data() });
             });
+          } catch (fetchErr) {
+            console.warn(`Error fetching ${collectionName}:`, fetchErr);
+            return [];
           }
 
-          // Sort stably in memory by sort_order
+          // Sort stably in memory:
+          // 1. Primary: sort_order asc (1 is at the top / most recent)
+          // 2. Secondary tie-breaker: created_at / updated_at desc (newest in time shows FIRST!)
           items.sort((a, b) => {
             const orderA = (a.sort_order !== undefined && a.sort_order !== null && a.sort_order !== "")
               ? Number(a.sort_order)
-              : 999999;
+              : 1;
             const orderB = (b.sort_order !== undefined && b.sort_order !== null && b.sort_order !== "")
               ? Number(b.sort_order)
-              : 999999;
-            return orderA - orderB;
+              : 1;
+
+            if (orderA !== orderB) {
+              return orderA - orderB;
+            }
+
+            const timeA = new Date(a.created_at || a.updated_at || 0).getTime();
+            const timeB = new Date(b.created_at || b.updated_at || 0).getTime();
+            return timeB - timeA;
           });
 
           return items;
@@ -1529,7 +1534,7 @@
           return `
             <div class="admin-item">
               <div class="admin-item-info">
-                <strong>${escapeHTML(title)}</strong>
+                <strong><span class="order-badge" style="display:inline-block;padding:2px 7px;margin-right:6px;font-size:9px;font-weight:700;border-radius:4px;background:var(--cream);border:1px solid var(--border);color:var(--gold);">#${item.sort_order ?? 1}</span>${escapeHTML(title)}</strong>
                 <span>${escapeHTML(subtitle)}</span>
               </div>
               <div class="admin-item-actions">
@@ -1571,8 +1576,34 @@
         editorTitle.textContent = item ? `Edit ${config.title}` : `Add ${config.title}`;
 
         editorFields.innerHTML = config.fields.map(field => {
-          const value = item?.[field.name] ?? "";
+          let value = item?.[field.name] ?? "";
+
+          // Auto-fill order number when adding a new item:
+          // In this portfolio, sort_order: 1 is the topmost position (newest / most recent in time).
+          if (!item && field.name === "sort_order") {
+            value = 1;
+          }
+
           const inputType = field.type === "number" ? "number" : field.type === "url" ? "url" : "text";
+
+          if (field.name === "sort_order") {
+            return `
+              <label>
+                ${escapeHTML(field.label)}
+                <small style="color: var(--gold); font-size: 8px; font-weight: normal; margin-left: 4px;">
+                  (1 = Show at Top / Latest)
+                </small>
+                <input
+                  type="number"
+                  name="${escapeHTML(field.name)}"
+                  value="${escapeHTML(value)}"
+                  placeholder="1"
+                  min="1"
+                  ${field.required ? "required" : ""}
+                >
+              </label>
+            `;
+          }
 
           if (field.type === "textarea") {
             return `
@@ -1665,6 +1696,17 @@
             }
           }
 
+          // Ensure sort_order is a valid integer (default 1 = top of list)
+          if (data.sort_order === null || isNaN(data.sort_order) || data.sort_order < 1) {
+            data.sort_order = 1;
+          }
+
+          const nowISO = new Date().toISOString();
+          data.updated_at = nowISO;
+          if (!editingDocumentId) {
+            data.created_at = nowISO;
+          }
+
           const submit = editorForm.querySelector(".save-btn");
           if (submit) {
             submit.disabled = true;
@@ -1676,6 +1718,32 @@
               await updateDoc(doc(db, activeCollection, editingDocumentId), data);
               showToast("Updated successfully.");
             } else {
+              // When adding a new item, shift any existing items with sort_order >= data.sort_order
+              // down by 1 so the new item cleanly takes the top position (Order 1) without collision
+              try {
+                const existingItems = await getCollection(activeCollection);
+                const targetOrder = Number(data.sort_order) || 1;
+                const shiftTasks = [];
+
+                for (const existing of existingItems) {
+                  const currentOrder = Number(existing.sort_order) || 1;
+                  if (currentOrder >= targetOrder) {
+                    shiftTasks.push(
+                      updateDoc(doc(db, activeCollection, existing.id), {
+                        sort_order: currentOrder + 1,
+                        updated_at: nowISO
+                      })
+                    );
+                  }
+                }
+
+                if (shiftTasks.length > 0) {
+                  await Promise.all(shiftTasks);
+                }
+              } catch (shiftErr) {
+                console.warn("Notice during order shifting:", shiftErr);
+              }
+
               await addDoc(collection(db, activeCollection), data);
               showToast("Added successfully.");
             }
